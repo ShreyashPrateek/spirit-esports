@@ -1,0 +1,64 @@
+# 🎮 Spirit Esports
+
+A full-stack esports web application built with React and Node.js, supporting authentication, API integration, and SQL-based data persistence. Deployed using Vercel.
+
+------------
+
+## 📁 Project Structure
+Spirit Esports/
+├── Client/ # Frontend (React)
+├── Server/ # Backend (Node.js, Express, MySQL)
+├── .gitignore
+├── README.md
+
+------------
+
+## 🚀 Tech Stack
+
+| Layer        | Tech                        |
+|--------------|-----------------------------|
+| Frontend     | HTML, CSS, JavaScript, React.js |
+| Backend      | Node.js, Express.js         |
+| Database     | MySQL                       |
+| Auth         | JWT                         |
+| API Calls    | Axios                       |
+| Deployment   | Vercel (Frontend + Backend) |
+
+------------
+
+## 🛠️ Setup Instructions
+
+1. Clone the Repository
+
+git clone
+cd spirit-esports
+
+2. 📦 Install Dependencies
+
+    Frontend (Client):
+    cd Client
+    npm install
+
+    Backend (Server):
+    cd ../Server
+    npm install
+
+3. ⚙️ Environment Variables
+Copy the env.example to .env
+
+4. 🧪 Running the App Locally
+
+Start Backend:
+
+cd Server
+npm start
+
+Start Frontend:
+Open a new terminal:
+
+cd Client
+npm start
+
+Frontend: http://localhost:3000
+Backend: http://localhost:5000
+
