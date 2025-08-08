@@ -192,7 +192,7 @@ export default function ContactPage() {
                   <p className="text-gray-400">Fill out the form below and we'll get back to you within 24 hours.</p>
                 </div>
 
-                <div className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name Field */}
                   <div>
                     <label className="block text-sm font-semibold text-purple-300 mb-2">
@@ -328,7 +328,7 @@ export default function ContactPage() {
                       Cancel
                     </button>
                   </div>
-                </div>
+                </form>
               </div>
 
               {/* Contact Information */}
