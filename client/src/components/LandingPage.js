@@ -117,11 +117,11 @@ export default function SpiritEsportsLanding() {
               
               <div className="hidden md:block">
                 <div className="flex items-baseline space-x-8">
-                  <a href="#" className="hover:text-purple-400 transition-colors">Home</a>
-                  <a href="#" className="hover:text-purple-400 transition-colors">Tournaments</a>
-                  <a href="#" className="hover:text-purple-400 transition-colors">Teams</a>
-                  <a href="#" className="hover:text-purple-400 transition-colors">Streams</a>
-                  <a href="#" className="hover:text-purple-400 transition-colors">Contact</a>
+                  <a href="/Home" className="hover:text-purple-400 transition-colors">Home</a>
+                  <a href="/Tournamnet" className="hover:text-purple-400 transition-colors">Tournaments</a>
+                  <a href="/Teams" className="hover:text-purple-400 transition-colors">Teams</a>
+                  <a href="/Streams" className="hover:text-purple-400 transition-colors">Streams</a>
+                  <a href="/Contact" className="hover:text-purple-400 transition-colors">Contact</a>
                 </div>
               </div>
 
@@ -148,11 +148,11 @@ export default function SpiritEsportsLanding() {
         {isMenuOpen && (
           <div className="fixed top-16 inset-x-0 bg-black/95 backdrop-blur-md z-40 md:hidden">
             <div className="px-4 py-6 space-y-4">
-              <a href="#" className="block py-2 hover:text-purple-400">Home</a>
-              <a href="#" className="block py-2 hover:text-purple-400">Tournaments</a>
-              <a href="#" className="block py-2 hover:text-purple-400">Teams</a>
-              <a href="#" className="block py-2 hover:text-purple-400">Streams</a>
-              <a href="#" className="block py-2 hover:text-purple-400">Contact</a>
+              <a href="/Home" className="block py-2 hover:text-purple-400">Home</a>
+              <a href="/Tournaments" className="block py-2 hover:text-purple-400">Tournaments</a>
+              <a href="/Teams" className="block py-2 hover:text-purple-400">Teams</a>
+              <a href="/Streams" className="block py-2 hover:text-purple-400">Streams</a>
+              <a href="/Contact" className="block py-2 hover:text-purple-400">Contact</a>
               <div className="pt-4 space-y-3">
                 <button className="w-full px-4 py-2 text-purple-400 border border-purple-400 rounded-lg">Login</button>
                 <button className="w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg">Join Now</button>
@@ -359,30 +359,30 @@ export default function SpiritEsportsLanding() {
               <div>
                 <h4 className="font-semibold mb-4">Tournaments</h4>
                 <div className="space-y-2">
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">BGMI Championship</a>
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">Squad Showdown</a>
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">Solo Masters</a>
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">Weekly Clash</a>
+                  <a href="" className="block text-gray-400 hover:text-purple-400">BGMI Championship</a>
+                  <a href="" className="block text-gray-400 hover:text-purple-400">Squad Showdown</a>
+                  <a href="" className="block text-gray-400 hover:text-purple-400">Solo Masters</a>
+                  <a href="" className="block text-gray-400 hover:text-purple-400">Weekly Clash</a>
                 </div>
               </div>
               
               <div>
                 <h4 className="font-semibold mb-4">Company</h4>
                 <div className="space-y-2">
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">About</a>
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">Careers</a>
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">Press</a>
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">Contact</a>
+                  <a href="/About" className="block text-gray-400 hover:text-purple-400">About</a>
+                  <a href="/Careers" className="block text-gray-400 hover:text-purple-400">Careers</a>
+                  <a href="/Press" className="block text-gray-400 hover:text-purple-400">Press</a>
+                  <a href="/Contact" className="block text-gray-400 hover:text-purple-400">Contact</a>
                 </div>
               </div>
               
               <div>
                 <h4 className="font-semibold mb-4">Community</h4>
                 <div className="space-y-2">
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">Discord</a>
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">Twitter</a>
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">YouTube</a>
-                  <a href="#" className="block text-gray-400 hover:text-purple-400">Twitch</a>
+                  <a href="" className="block text-gray-400 hover:text-purple-400">Discord</a>
+                  <a href="" className="block text-gray-400 hover:text-purple-400">Twitter</a>
+                  <a href="" className="block text-gray-400 hover:text-purple-400">YouTube</a>
+                  <a href="" className="block text-gray-400 hover:text-purple-400">Twitch</a>
                 </div>
               </div>
             </div>
