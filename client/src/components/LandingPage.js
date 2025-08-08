@@ -359,10 +359,10 @@ export default function SpiritEsportsLanding() {
               <div>
                 <h4 className="font-semibold mb-4">Tournaments</h4>
                 <div className="space-y-2">
-                  <a href="" className="block text-gray-400 hover:text-purple-400">BGMI Championship</a>
-                  <a href="" className="block text-gray-400 hover:text-purple-400">Squad Showdown</a>
-                  <a href="" className="block text-gray-400 hover:text-purple-400">Solo Masters</a>
-                  <a href="" className="block text-gray-400 hover:text-purple-400">Weekly Clash</a>
+                  <a href="/BGMI Championship" className="block text-gray-400 hover:text-purple-400">BGMI Championship</a>
+                  <a href="/Squad Showdown" className="block text-gray-400 hover:text-purple-400">Squad Showdown</a>
+                  <a href="/Solo Masters" className="block text-gray-400 hover:text-purple-400">Solo Masters</a>
+                  <a href="/Weekly Clash" className="block text-gray-400 hover:text-purple-400">Weekly Clash</a>
                 </div>
               </div>
               
@@ -379,10 +379,10 @@ export default function SpiritEsportsLanding() {
               <div>
                 <h4 className="font-semibold mb-4">Community</h4>
                 <div className="space-y-2">
-                  <a href="" className="block text-gray-400 hover:text-purple-400">Discord</a>
-                  <a href="" className="block text-gray-400 hover:text-purple-400">Twitter</a>
-                  <a href="" className="block text-gray-400 hover:text-purple-400">YouTube</a>
-                  <a href="" className="block text-gray-400 hover:text-purple-400">Twitch</a>
+                  <a href="/Discord" className="block text-gray-400 hover:text-purple-400">Discord</a>
+                  <a href="/Twitter" className="block text-gray-400 hover:text-purple-400">Twitter</a>
+                  <a href="/YouTube" className="block text-gray-400 hover:text-purple-400">YouTube</a>
+                  <a href="/Twitch" className="block text-gray-400 hover:text-purple-400">Twitch</a>
                 </div>
               </div>
             </div>
