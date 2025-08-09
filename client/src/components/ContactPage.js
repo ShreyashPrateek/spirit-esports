@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Header from './Header';
 import { useNavigate } from 'react-router-dom';
 import { Send, X, User, Phone, Mail, MessageSquare, FileText, Swords, ArrowLeft, MapPin, Clock, Users } from 'lucide-react';
 
@@ -146,27 +147,8 @@ export default function ContactPage() {
 
       <div className="relative z-10">
         {/* Navigation */}
-        <nav className="bg-black/80 backdrop-blur-md border-b border-purple-500/20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                  <Swords className="w-6 h-6" />
-                </div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  SPIRIT ESPORTS
-                </span>
-              </div>
-              
-              <button 
-                onClick={() => navigate('/')}
-                className="flex items-center space-x-2 px-4 py-2 text-purple-400 hover:text-purple-300 transition-colors hover:bg-purple-400/10 rounded-lg"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                <span>Back to Home</span>
-              </button>
-            </div>
-          </div>
+        <nav>
+            <Header />
         </nav>
 
         {/* Contact Section */}

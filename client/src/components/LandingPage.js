@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Header from './Header';
 import { Play, Trophy, Users, Zap, ChevronDown, Menu, X, Star, ArrowRight, Swords } from 'lucide-react';
 
 export default function SpiritEsportsLanding() {
@@ -103,45 +104,8 @@ export default function SpiritEsportsLanding() {
 
       <div className="relative z-10">
         {/* Navigation */}
-        <nav className="fixed top-0 w-full bg-black/80 backdrop-blur-md border-b border-purple-500/20 z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                  <Swords className="w-6 h-6" />
-                </div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  SPIRIT ESPORTS
-                </span>
-              </div>
-              
-              <div className="hidden md:block">
-                <div className="flex items-baseline space-x-8">
-                  <a href="/Home" className="hover:text-purple-400 transition-colors">Home</a>
-                  <a href="/Tournamnet" className="hover:text-purple-400 transition-colors">Tournaments</a>
-                  <a href="/Teams" className="hover:text-purple-400 transition-colors">Teams</a>
-                  <a href="/Streams" className="hover:text-purple-400 transition-colors">Streams</a>
-                  <a href="/Contact" className="hover:text-purple-400 transition-colors">Contact</a>
-                </div>
-              </div>
-
-              <div className="hidden md:flex items-center space-x-4">
-                <button className="px-4 py-2 text-purple-400 border border-purple-400 rounded-lg hover:bg-purple-400 hover:text-black transition-all">
-                  Login
-                </button>
-                <button className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all">
-                  Join Now
-                </button>
-              </div>
-
-              <button 
-                className="md:hidden"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
-          </div>
+        <nav>
+        <Header />
         </nav>
 
         {/* Mobile Menu */}
