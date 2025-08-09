@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Trophy, Users, Zap, Target, Award, Shield, Star, ArrowRight, Play, GamepadIcon } from 'lucide-react';
+import { Trophy, Users, Zap, Target, Shield, Star, ArrowRight, Play, GamepadIcon } from 'lucide-react';
 import Header from './Header';
 
 export default function AboutUs() {

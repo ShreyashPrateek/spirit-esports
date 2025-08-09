@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
-import { Play, Trophy, Users, Zap, ChevronDown, Menu, X, Star, ArrowRight, Swords } from 'lucide-react';
+import { Play, Trophy, Users, Zap, ChevronDown, Star, ArrowRight, Swords } from 'lucide-react';
 
 export default function SpiritEsportsLanding() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
