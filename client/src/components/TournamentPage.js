@@ -20,7 +20,7 @@ const TournamentPage = () => {
   }, []);
 
   // Sample tournament data
-  const tournaments = [
+  const tournaments = useMemo(() => [
     {
       id: 1,
       name: "BGMI Pro League Season 5",
@@ -102,7 +102,7 @@ const TournamentPage = () => {
       stage: "Completed",
       winner: "Team Phoenix"
     }
-  ];
+  ], []);
 
   // Filter tournaments based on selected filters
   const filteredTournaments = useMemo(() => {
