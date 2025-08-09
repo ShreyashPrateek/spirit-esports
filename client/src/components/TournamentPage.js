@@ -130,7 +130,7 @@ const TournamentPage = () => {
     });
 
     return filtered;
-  }, [filters]);
+  }, [filters, tournaments]);
 
   // Pagination
   const totalPages = Math.ceil(filteredTournaments.length / tournamentsPerPage);
