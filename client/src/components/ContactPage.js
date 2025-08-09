@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import Header from './Header';
-import { useNavigate } from 'react-router-dom';
-import { Send, X, User, Phone, Mail, MessageSquare, FileText, Swords, ArrowLeft, MapPin, Clock, Users } from 'lucide-react';
+import { Send, X, User, Phone, Mail, MessageSquare, FileText, Swords, MapPin, Clock, Users } from 'lucide-react';
 
 export default function ContactPage() {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     whatsapp: '',
