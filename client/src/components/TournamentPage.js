@@ -30,7 +30,7 @@ const TournamentPage = () => {
       endDate: "2020-09-23",
       prizePool: 500,
       participants: { current: 60, max: 60 },
-      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=200&fit=crop",
+      image: "/images/pmsl.jpg",
       stage: "Completed",
       winner: "To Be Listed Later"
     },
