@@ -320,7 +320,8 @@ export default function AboutUs() {
               <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
                 Start Your Journey
               </button>
-              <button className="px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all">
+              <button className="px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all"
+              onClick={() => window.location.href = '/contact'}>
                 Contact Us
               </button>
             </div>

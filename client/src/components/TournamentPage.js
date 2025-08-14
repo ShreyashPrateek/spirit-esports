@@ -23,22 +23,47 @@ const TournamentPage = () => {
   const tournaments = useMemo(() => [
     {
       id: 1,
-      name: "BGMI Pro League Season 5",
+      name: "PUBG Mobile Spirit League",
       type: "squad",
-      status: "upcoming",
-      date: "2024-06-15",
-      time: "6:00 PM",
-      entryFee: 500,
-      prizePool: 50000,
-      participants: { current: 25, max: 100 },
-      image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=200&fit=crop",
-      stage: null,
-      winner: null
+      status: "completed",
+      date: "2020-09-20",
+      endDate: "2020-09-23",
+      prizePool: 500,
+      participants: { current: 60, max: 60 },
+      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=200&fit=crop",
+      stage: "Completed",
+      winner: "To Be Listed Later"
     },
     {
       id: 2,
-      name: "Weekend Warriors Cup",
-      type: "duo",
+      name: "Spirit Winter League (SWL)",
+      type: "squad",
+      status: "completed",
+      date: "2020-12-19",
+      endDate: "2020-12-22",
+      prizePool: 500,
+      participants: { current: 66, max: 66 },
+      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=200&fit=crop",
+      stage: "Completed",
+      winner: "To Be Listed Later"
+    },
+    {
+      id: 3,
+      name: "Spirit Battle Ground League Season 1 (SBGL S1)",
+      type: "squad",
+      status: "completed",
+      date: "2021-07-08",
+      endDate: "2021-07-12",
+      prizePool: 1000,
+      participants: { current: 100, max: 100 },
+      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=200&fit=crop",
+      stage: "Completed",
+      winner: "To Be Listed Later"
+    },
+    {
+      id: 4,
+      name: "This is a demo data for upcoming",
+      type: "squad",
       status: "upcoming",
       date: "2024-06-22",
       time: "7:00 PM",
@@ -50,22 +75,8 @@ const TournamentPage = () => {
       winner: null
     },
     {
-      id: 3,
-      name: "Solo Showdown",
-      type: "solo",
-      status: "upcoming",
-      date: "2024-06-30",
-      time: "8:00 PM",
-      entryFee: 100,
-      prizePool: 15000,
-      participants: { current: 78, max: 100 },
-      image: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=400&h=200&fit=crop",
-      stage: null,
-      winner: null
-    },
-    {
-      id: 4,
-      name: "BGMI Summer Championship",
+      id: 5,
+      name: "This is demo data for ongoing",
       type: "squad",
       status: "ongoing",
       date: "2024-05-28",
@@ -76,32 +87,6 @@ const TournamentPage = () => {
       stage: "Quarter Finals",
       winner: null
     },
-    {
-      id: 5,
-      name: "BGMI Spring Invitational",
-      type: "squad",
-      status: "completed",
-      date: "2024-04-10",
-      endDate: "2024-04-25",
-      prizePool: 100000,
-      participants: { current: 100, max: 100 },
-      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=200&fit=crop",
-      stage: "Completed",
-      winner: "Team Dominators"
-    },
-    {
-      id: 6,
-      name: "Dynamic Duo Challenge",
-      type: "duo",
-      status: "completed",
-      date: "2024-03-15",
-      endDate: "2024-03-20",
-      prizePool: 30000,
-      participants: { current: 50, max: 50 },
-      image: "https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=400&h=200&fit=crop",
-      stage: "Completed",
-      winner: "Team Phoenix"
-    }
   ], []);
 
   // Filter tournaments based on selected filters
