@@ -108,6 +108,8 @@ const TournamentPage = () => {
           return b.prizePool - a.prizePool;
         case 'name':
           return a.name.localeCompare(b.name);
+        case 'date-oldest':
+          return new Date(a.date) - new Date(b.date);
         case 'date':
         default:
           return new Date(b.date) - new Date(a.date);
@@ -413,6 +415,7 @@ const TournamentPage = () => {
                       className="w-full bg-gray-800/50 border border-gray-600 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
                     >
                       <option value="date">Date (Newest First)</option>
+                      <option value="date-oldest">Date (Oldest First)</option>
                       <option value="prize">Prize Pool (Highest First)</option>
                       <option value="name">Name (A-Z)</option>
                     </select>
