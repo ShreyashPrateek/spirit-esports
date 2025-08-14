@@ -54,13 +54,13 @@ export default function Header() {
                   onMouseLeave={() => setIsDropdownOpen(false)}
                 >
                   <a href="/game-hosting" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
-                    Game Hosting
+                    Pro-Grade Gaming Experience
                   </a>
                   <a href="/organiser-support" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
-                    Organiser Support
+                    Fair Play & Player Support
                   </a>
                   <a href="/custom-tournaments" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
-                    Custom Tournaments
+                    Exciting & Custom Tournaments
                   </a>
                 </div>
               </div>
