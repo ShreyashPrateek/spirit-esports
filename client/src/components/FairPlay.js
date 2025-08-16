@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
-import { Shield, Clock, Users, AlertTriangle, CheckCircle, MessageSquare, Headphones, Star, ArrowRight, Swords, Eye, Ban, FileText } from 'lucide-react';
+import { Shield, Clock, AlertTriangle, MessageSquare, Headphones, ArrowRight, Swords, Eye, Ban, FileText } from 'lucide-react';
 
 export default function FairPlaySupport() {
   const [isMenuOpen] = useState(false);

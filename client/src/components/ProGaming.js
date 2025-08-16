@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
-import { Monitor, Wifi, Trophy, Users, Zap, ChevronDown, Star, ArrowRight, Gamepad2, Shield, Settings, Activity, Video, Headphones } from 'lucide-react';
+import { Monitor, Wifi, Trophy, ChevronDown, Star, ArrowRight, Gamepad2, Shield, Activity, Video } from 'lucide-react';
 
 export default function ProGradeExperience() {
   const [scrollY, setScrollY] = useState(0);
