@@ -71,12 +71,12 @@ export default function Header() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <button className="px-4 py-2 text-purple-400 border border-purple-400 rounded-lg hover:bg-purple-400 hover:text-black transition-all">
+            <a href="/login" className="px-4 py-2 text-purple-400 border border-purple-400 rounded-lg hover:bg-purple-400 hover:text-black transition-all">
               Login
-            </button>
-            <button className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all">
+            </a>
+            <a href="/signup" className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all">
               Join Now
-            </button>
+            </a>
           </div>
 
           <button 
@@ -107,8 +107,8 @@ export default function Header() {
             <a href="/tournament" className="block py-2 hover:text-purple-400">Tournament</a>
             <a href="/contact" className="block py-2 hover:text-purple-400">Contact</a>
             <div className="pt-4 space-y-3">
-              <button className="w-full px-4 py-2 text-purple-400 border border-purple-400 rounded-lg">Login</button>
-              <button className="w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg">Join Now</button>
+              <a href="/login" className="block w-full px-4 py-2 text-purple-400 border border-purple-400 rounded-lg text-center">Login</a>
+              <a href="/signup" className="block w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-center">Join Now</a>
             </div>
           </div>
         </div>

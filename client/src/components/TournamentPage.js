@@ -43,7 +43,7 @@ const TournamentPage = () => {
       endDate: "2020-12-22",
       prizePool: 500,
       participants: { current: 66, max: 66 },
-      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=200&fit=crop",
+      image: "/images/SWL.jpeg",
       stage: "Completed",
       winner: "To Be Listed Later"
     },
@@ -56,7 +56,7 @@ const TournamentPage = () => {
       endDate: "2021-07-12",
       prizePool: 1000,
       participants: { current: 100, max: 100 },
-      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=200&fit=crop",
+      image: "/images/league.jpg",
       stage: "Completed",
       winner: "To Be Listed Later"
     },
@@ -335,7 +335,10 @@ const TournamentPage = () => {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
+                  <button 
+                    onClick={() => document.getElementById('tournaments-section').scrollIntoView({ behavior: 'smooth' })}
+                    className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105"
+                  >
                     <span className="flex items-center justify-center">
                       Join Tournament
                       <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -427,7 +430,7 @@ const TournamentPage = () => {
         </section>
 
         {/* Tournaments Grid */}
-        <section className="py-20">
+        <section id="tournaments-section" className="py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {filteredTournaments.length === 0 ? (
               <div className="text-center py-16">

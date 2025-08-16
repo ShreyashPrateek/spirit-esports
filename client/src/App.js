@@ -4,6 +4,8 @@ import LandingPage from './components/LandingPage';
 import ContactPage from './components/ContactPage';
 import AboutUs from './components/AboutUs';
 import TournamentPage from './components/TournamentPage';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/tournament" element={<TournamentPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );

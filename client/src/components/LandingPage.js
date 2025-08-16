@@ -150,7 +150,7 @@ export default function SpiritEsportsLanding() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
                     <span className="flex items-center justify-center">
-                      Register for Tournament
+                      <a href="/tournament">Register for Tournament</a>
                       <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </button>
