@@ -5,6 +5,7 @@ import { Play, Trophy, Users, Zap, ChevronDown, Star, ArrowRight, Swords } from 
 export default function SpiritEsportsLanding() {
   const [isMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [isStreamComingSoon, setIsStreamComingSoon] = useState(true); // Control coming soon state
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -105,7 +106,7 @@ export default function SpiritEsportsLanding() {
       <div className="relative z-10">
         {/* Navigation */}
         <nav>
-        <Header />
+          <Header />
         </nav>
 
         {/* Mobile Menu */}
@@ -174,16 +175,55 @@ export default function SpiritEsportsLanding() {
                 </div>
               </div>
 
+              {/* BGMI Stream Card with Coming Soon */}
               <div className="relative">
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur-xl transform rotate-6"></div>
                   <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 border border-purple-500/20">
                     <div className="aspect-video bg-black rounded-lg mb-6 flex items-center justify-center relative overflow-hidden">
-                      <div className="text-6xl">📱</div>
+                      {/* Phone emoji background */}
+                      <div className="text-6xl opacity-30">📱</div>
+                      
+                      {/* Live badge */}
                       <div className="absolute top-2 right-2 px-2 py-1 bg-red-500 text-white text-xs rounded">
                         LIVE BGMI
                       </div>
+                      
+                      {/* Coming Soon Overlay */}
+                      {isStreamComingSoon && (
+                        <div className="absolute inset-0 bg-black/85 backdrop-blur-sm flex items-center justify-center">
+                          <div className="text-center space-y-4">
+                            {/* Coming Soon Text with Glow Effect */}
+                            <div className="relative">
+                              <h2 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+                                COMING SOON
+                              </h2>
+                              <div className="absolute inset-0 text-2xl md:text-3xl font-bold text-purple-400/20 blur-sm">
+                                COMING SOON
+                              </div>
+                            </div>
+                            
+                            {/* Clock icon */}
+                            <div className="text-3xl animate-pulse">⏰</div>
+                            
+                            {/* Additional info */}
+                            <p className="text-gray-300 text-sm">Squad Finals Starting Soon</p>
+                            
+                            {/* Animated dots */}
+                            <div className="flex justify-center space-x-1">
+                              {[0, 1, 2].map((i) => (
+                                <div
+                                  key={i}
+                                  className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"
+                                  style={{ animationDelay: `${i * 0.2}s` }}
+                                ></div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
+                    
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="text-purple-400">BGMI Championship</span>
@@ -199,6 +239,14 @@ export default function SpiritEsportsLanding() {
                         <span className="text-gray-400">45K viewers</span>
                       </div>
                     </div>
+                    
+                    {/* Demo toggle button - you can remove this in production */}
+                    <button
+                      onClick={() => setIsStreamComingSoon(!isStreamComingSoon)}
+                      className="mt-4 w-full px-4 py-2 bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 rounded-lg transition-colors text-sm border border-purple-500/30"
+                    >
+                      {isStreamComingSoon ? 'Preview Stream' : 'Show Coming Soon'}
+                    </button>
                   </div>
                 </div>
               </div>
