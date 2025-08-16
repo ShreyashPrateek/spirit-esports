@@ -53,13 +53,13 @@ export default function Header() {
                   onMouseEnter={() => setIsDropdownOpen(true)}
                   onMouseLeave={() => setIsDropdownOpen(false)}
                 >
-                  <a href="/game-hosting" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
+                  <a href="/ProGaming" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
                     Pro-Grade Gaming Experience
                   </a>
-                  <a href="/organiser-support" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
+                  <a href="/FairPlay" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
                     Fair Play & Player Support
                   </a>
-                  <a href="/custom-tournaments" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
+                  <a href="/CustomTournament" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
                     Exciting & Custom Tournaments
                   </a>
                 </div>
@@ -98,7 +98,7 @@ export default function Header() {
             <div className="py-2">
               <div className="text-purple-400 font-semibold mb-2">What we offer</div>
               <div className="ml-4 space-y-2">
-                <a href="/game-hosting" className="block py-1 text-sm hover:text-purple-400">Game Hosting</a>
+                <a href="/ProGaming" className="block py-1 text-sm hover:text-purple-400">Game Hosting</a>
                 <a href="/organiser-support" className="block py-1 text-sm hover:text-purple-400">Organiser Support</a>
                 <a href="/custom-tournaments" className="block py-1 text-sm hover:text-purple-400">Custom Tournaments</a>
               </div>

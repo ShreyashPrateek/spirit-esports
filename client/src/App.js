@@ -4,6 +4,9 @@ import LandingPage from './components/LandingPage';
 import ContactPage from './components/ContactPage';
 import AboutUs from './components/AboutUs';
 import TournamentPage from './components/TournamentPage';
+import ProGaming from './components/ProGaming';
+import FairPlay from './components/FairPlay';
+import CustomTournament from './components/CustomTournament';
 
 function App() {
   return (
@@ -13,6 +16,9 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/tournament" element={<TournamentPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/ProGaming" element={<ProGaming />} />
+        <Route path="/FairPlay" element={<FairPlay />} />
+        <Route path="/CustomTournament" element={<CustomTournament />} />
       </Routes>
     </BrowserRouter>
   );

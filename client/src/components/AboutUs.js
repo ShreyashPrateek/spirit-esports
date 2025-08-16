@@ -357,9 +357,9 @@ export default function AboutUs() {
               <div>
                 <h4 className="font-semibold mb-4">Services</h4>
                 <div className="space-y-2">
-                  <a href="/game-hosting" className="block text-gray-400 hover:text-purple-400">Game Hosting</a>
-                  <a href="/organiser-support" className="block text-gray-400 hover:text-purple-400">Organiser Support</a>
-                  <a href="/custom-tournaments" className="block text-gray-400 hover:text-purple-400">Custom Tournaments</a>
+                  <a href="/ProGaming" className="block text-gray-400 hover:text-purple-400">Game Hosting</a>
+                  <a href="/FairPlay" className="block text-gray-400 hover:text-purple-400">Organiser Support</a>
+                  <a href="/CustomTournament" className="block text-gray-400 hover:text-purple-400">Custom Tournaments</a>
                 </div>
               </div>
               
