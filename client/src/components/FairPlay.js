@@ -3,7 +3,6 @@ import Header from './Header';
 import { Shield, Clock, AlertTriangle, MessageSquare, Headphones, ArrowRight, Swords, Eye, Ban, FileText } from 'lucide-react';
 
 export default function FairPlaySupport() {
-  const [isMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -127,23 +126,6 @@ export default function FairPlaySupport() {
         <nav>
           <Header />
         </nav>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="fixed top-16 inset-x-0 bg-black/95 backdrop-blur-md z-40 md:hidden">
-            <div className="px-4 py-6 space-y-4">
-              <a href="/Home" className="block py-2 hover:text-purple-400">Home</a>
-              <a href="/Tournaments" className="block py-2 hover:text-purple-400">Tournaments</a>
-              <a href="/Teams" className="block py-2 hover:text-purple-400">Teams</a>
-              <a href="/Streams" className="block py-2 hover:text-purple-400">Streams</a>
-              <a href="/Contact" className="block py-2 hover:text-purple-400">Contact</a>
-              <div className="pt-4 space-y-3">
-                <button className="w-full px-4 py-2 text-purple-400 border border-purple-400 rounded-lg">Login</button>
-                <button className="w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg">Join Now</button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Hero Section */}
         <section className="pt-16 min-h-screen flex items-center">

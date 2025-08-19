@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Swords, Menu, X, ChevronDown } from 'lucide-react';
 
 export default function Header() {
@@ -22,17 +23,17 @@ export default function Header() {
             <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
               <Swords className="w-6 h-6" />
             </div>
-            <a 
-              href="/" 
+            <Link 
+              to="/" 
               className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent hover:from-purple-300 hover:to-blue-300 transition-all duration-300"
             >
               SPIRIT ESPORTS
-            </a>
+            </Link>
           </div>
           
           <div className="hidden md:block">
             <div className="flex items-baseline space-x-8">
-              <a href="/about" className="hover:text-purple-400 transition-colors">About Us</a>
+              <Link to="/about" className="hover:text-purple-400 transition-colors">About Us</Link>
               
               {/* Dropdown for "What we offer" */}
               <div className="relative">
@@ -53,31 +54,33 @@ export default function Header() {
                   onMouseEnter={() => setIsDropdownOpen(true)}
                   onMouseLeave={() => setIsDropdownOpen(false)}
                 >
-                  <a href="/ProGaming" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
+                  <Link to="/ProGaming" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
                     Pro-Grade Gaming Experience
-                  </a>
-                  <a href="/FairPlay" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
+                  </Link>
+                  <Link to="/FairPlay" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
                     Fair Play & Player Support
-                  </a>
-                  <a href="/CustomTournament" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
+                  </Link>
+                  <Link to="/CustomTournament" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
                     Exciting & Custom Tournaments
-                  </a>
+                  </Link>
                 </div>
               </div>
               
-              <a href="/tournament" className="hover:text-purple-400 transition-colors">Tournament</a>
-              <a href="/contact" className="hover:text-purple-400 transition-colors">Contact</a>
+              <Link to="/tournament" className="hover:text-purple-400 transition-colors">Tournament</Link>
+              <Link to="/contact" className="hover:text-purple-400 transition-colors">Contact</Link>
             </div>
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <a href="/login" className="px-4 py-2 text-purple-400 border border-purple-400 rounded-lg hover:bg-purple-400 hover:text-black transition-all">
+            <Link to="/login" className="px-4 py-2 text-purple-400 border border-purple-400 rounded-lg hover:bg-purple-400 hover:text-black transition-all">
               Login
-            </a>
-            <a href="/signup" className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all">
+            </Link>
+            <Link to="/signup" className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all">
               Join Now
-            </a>
+            </Link>
           </div>
+
+          
 
           <button 
             className="md:hidden"
@@ -88,27 +91,29 @@ export default function Header() {
         </div>
       </div>
 
+
+      
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="fixed top-16 inset-x-0 bg-black/95 backdrop-blur-md z-40 md:hidden">
           <div className="px-4 py-6 space-y-4">
-            <a href="/about" className="block py-2 hover:text-purple-400">About Us</a>
+            <Link to="/about" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-purple-400">About Us</Link>
             
             {/* Mobile Dropdown Items */}
             <div className="py-2">
               <div className="text-purple-400 font-semibold mb-2">What we offer</div>
               <div className="ml-4 space-y-2">
-                <a href="/ProGaming" className="block py-1 text-sm hover:text-purple-400">Game Hosting</a>
-                <a href="/organiser-support" className="block py-1 text-sm hover:text-purple-400">Organiser Support</a>
-                <a href="/custom-tournaments" className="block py-1 text-sm hover:text-purple-400">Custom Tournaments</a>
+                <Link to="/ProGaming" onClick={() => setIsMenuOpen(false)} className="block py-1 text-sm hover:text-purple-400">Pro-Grade Gaming Experience</Link>
+                <Link to="/FairPlay" onClick={() => setIsMenuOpen(false)} className="block py-1 text-sm hover:text-purple-400">Fair Play & Player Support</Link>
+                <Link to="/CustomTournament" onClick={() => setIsMenuOpen(false)} className="block py-1 text-sm hover:text-purple-400">Exciting & Custom Tournaments</Link>
               </div>
             </div>
             
-            <a href="/tournament" className="block py-2 hover:text-purple-400">Tournament</a>
-            <a href="/contact" className="block py-2 hover:text-purple-400">Contact</a>
+            <Link to="/tournament" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-purple-400">Tournament</Link>
+            <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-purple-400">Contact</Link>
             <div className="pt-4 space-y-3">
-              <a href="/login" className="block w-full px-4 py-2 text-purple-400 border border-purple-400 rounded-lg text-center">Login</a>
-              <a href="/signup" className="block w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-center">Join Now</a>
+              <Link to="/login" onClick={() => setIsMenuOpen(false)} className="block w-full px-4 py-2 text-purple-400 border border-purple-400 rounded-lg text-center">Login</Link>
+              <Link to="/signup" onClick={() => setIsMenuOpen(false)} className="block w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-center">Join Now</Link>
             </div>
           </div>
         </div>

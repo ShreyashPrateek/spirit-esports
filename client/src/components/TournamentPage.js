@@ -56,7 +56,7 @@ const TournamentPage = () => {
       endDate: "2021-07-12",
       prizePool: 1000,
       participants: { current: 100, max: 100 },
-      image: "/images/league.jpg",
+      image: "/images/SBGL-S1.jpg",
       stage: "Completed",
       winner: "To Be Listed Later"
     },

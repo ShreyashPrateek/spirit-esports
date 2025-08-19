@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, Mail, Lock, Phone, Upload, Eye, EyeOff, GamepadIcon } from 'lucide-react';
+import { User, Mail, Lock, Upload, Eye, EyeOff, GamepadIcon } from 'lucide-react';
 import Header from './Header';
 
 const SignUp = () => {
@@ -23,6 +23,19 @@ const SignUp = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    
+    // Phone number validation for Indian numbers
+    if (name === 'phone') {
+      const numericValue = value.replace(/[^0-9]/g, '');
+      if (numericValue.length <= 10) {
+        setFormData(prev => ({
+          ...prev,
+          [name]: numericValue
+        }));
+      }
+      return;
+    }
+    
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -143,24 +156,21 @@ const SignUp = () => {
                 {/* Phone Number */}
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">Phone Number</label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    <div className="flex">
-                      <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-600 bg-gray-700/50 text-gray-400 text-sm">
-                        +91
-                      </span>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className="flex-1 bg-gray-800/50 border border-gray-600 text-white rounded-r-lg pl-3 pr-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                        placeholder="Enter 10-digit number"
-                        pattern="[0-9]{10}"
-                        maxLength="10"
-                        required
-                      />
-                    </div>
+                  <div className="flex w-full">
+                    <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-600 bg-gray-700/50 text-gray-400 text-sm">
+                      +91
+                    </span>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="flex-1 bg-gray-800/50 border border-gray-600 text-white rounded-r-lg pl-3 pr-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                      placeholder="Enter 10-digit number"
+                      pattern="[6-9][0-9]{9}"
+                      maxLength="10"
+                      required
+                    />
                   </div>
                 </div>
 
