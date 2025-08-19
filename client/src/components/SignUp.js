@@ -23,7 +23,7 @@ const SignUp = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     // Phone number validation for Indian numbers
     if (name === 'phone') {
       const numericValue = value.replace(/[^0-9]/g, '');
@@ -35,7 +35,7 @@ const SignUp = () => {
       }
       return;
     }
-    
+
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -49,7 +49,7 @@ const SignUp = () => {
         ...prev,
         profilePicture: file
       }));
-      
+
       const reader = new FileReader();
       reader.onload = (e) => setPreviewImage(e.target.result);
       reader.readAsDataURL(file);
@@ -67,7 +67,7 @@ const SignUp = () => {
       {/* Animated Background */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-black"></div>
-        <div 
+        <div
           className="absolute inset-0 opacity-30"
           style={{
             backgroundImage: `radial-gradient(circle at 25% 25%, #8b5cf6 0%, transparent 50%), 
@@ -156,16 +156,23 @@ const SignUp = () => {
                 {/* Phone Number */}
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">Phone Number</label>
-                  <div className="flex w-full">
-                    <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-600 bg-gray-700/50 text-gray-400 text-sm">
+
+                  {/* The parent div now controls all styling */}
+                  <div className="flex items-center w-full rounded-lg border border-gray-600 bg-gray-800/50 transition-all
+                focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-transparent">
+
+                    {/* The span is now just for text and the separator line */}
+                    <span className="pl-3 pr-2 text-gray-400 border-r border-gray-600">
                       +91
                     </span>
+
+                    {/* The input is transparent and has no border or default focus ring */}
                     <input
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="flex-1 bg-gray-800/50 border border-gray-600 text-white rounded-r-lg pl-3 pr-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                      className="flex-1 bg-transparent text-white pl-3 pr-4 py-3 border-0 focus:ring-0"
                       placeholder="Enter 10-digit number"
                       pattern="[6-9][0-9]{9}"
                       maxLength="10"
