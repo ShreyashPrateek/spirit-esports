@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Header from './Header';
+import Footer from './Footer';
 import { Send, X, User, Phone, Mail, MessageSquare, FileText, Swords, MapPin, Clock, Users } from 'lucide-react';
 
 export default function ContactPage() {
@@ -379,19 +380,9 @@ export default function ContactPage() {
         </section>
 
         {/* Footer */}
-        <footer className="bg-black border-t border-purple-500/20 py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="flex items-center justify-center space-x-3 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                <Swords className="w-5 h-5" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                SPIRIT ESPORTS
-              </span>
-            </div>
-            <p className="text-gray-400">&copy; 2025 Spirit Esports. All rights reserved.</p>
-          </div>
-        </footer>
+        <nav>
+          <Footer />
+        </nav>
       </div>
     </div>
   );

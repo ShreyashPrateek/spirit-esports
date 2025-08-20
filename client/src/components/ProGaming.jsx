@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
+import Footer from './Footer';
 import { Monitor, Wifi, Trophy, ChevronDown, Star, ArrowRight, Gamepad2, Shield, Activity, Video } from 'lucide-react';
 
 export default function ProGradeExperience() {
@@ -349,57 +350,9 @@ export default function ProGradeExperience() {
         </section>
 
         {/* Footer */}
-        <footer className="bg-black border-t border-purple-500/20 py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-4 gap-8">
-              <div>
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                    <Gamepad2 className="w-5 h-5" />
-                  </div>
-                  <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                    SPIRIT ESPORTS
-                  </span>
-                </div>
-                <p className="text-gray-400">Delivering pro-grade gaming experiences for the next generation of esports.</p>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Features</h4>
-                <div className="space-y-2">
-                  <a href="/servers" className="block text-gray-400 hover:text-purple-400">Lag-Free Servers</a>
-                  <a href="/streaming" className="block text-gray-400 hover:text-purple-400">Pro Streaming</a>
-                  <a href="/spectator" className="block text-gray-400 hover:text-purple-400">Spectator Mode</a>
-                  <a href="/custom-modes" className="block text-gray-400 hover:text-purple-400">Custom Modes</a>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Support</h4>
-                <div className="space-y-2">
-                  <a href="/technical-support" className="block text-gray-400 hover:text-purple-400">Technical Support</a>
-                  <a href="/setup-guide" className="block text-gray-400 hover:text-purple-400">Setup Guide</a>
-                  <a href="/troubleshooting" className="block text-gray-400 hover:text-purple-400">Troubleshooting</a>
-                  <a href="/contact" className="block text-gray-400 hover:text-purple-400">Contact Us</a>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Connect</h4>
-                <div className="space-y-2">
-                  <a href="/discord" className="block text-gray-400 hover:text-purple-400">Discord</a>
-                  <a href="/twitter" className="block text-gray-400 hover:text-purple-400">Twitter</a>
-                  <a href="/youtube" className="block text-gray-400 hover:text-purple-400">YouTube</a>
-                  <a href="/community" className="block text-gray-400 hover:text-purple-400">Community</a>
-                </div>
-              </div>
-            </div>
-            
-            <div className="border-t border-purple-500/20 mt-8 pt-8 text-center text-gray-400">
-              <p>&copy; 2025 Spirit Esports. All rights reserved. | Pro-Grade Gaming Experience</p>
-            </div>
-          </div>
-        </footer>
+          <nav>
+            <Footer />
+          </nav>
       </div>
     </div>
   );

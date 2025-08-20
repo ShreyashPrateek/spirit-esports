@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Calendar, Trophy, Clock, Target, Filter, ChevronLeft, ChevronRight, Play, GamepadIcon, ArrowRight } from 'lucide-react';
 import Header from './Header';
+import Footer from './Footer';
 
 const TournamentPage = () => {
   const [filters, setFilters] = useState({
@@ -526,57 +527,9 @@ const TournamentPage = () => {
         </section>
 
         {/* Footer */}
-        <footer className="bg-black border-t border-purple-500/20 py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-4 gap-8">
-              <div>
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                    <GamepadIcon className="w-5 h-5" />
-                  </div>
-                  <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                    SPIRIT ESPORTS
-                  </span>
-                </div>
-                <p className="text-gray-400">Powering gaming dreams across India.</p>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Tournaments</h4>
-                <div className="space-y-2">
-                  <a href="/upcoming" className="block text-gray-400 hover:text-purple-400">Upcoming</a>
-                  <a href="/live" className="block text-gray-400 hover:text-purple-400">Live</a>
-                  <a href="/results" className="block text-gray-400 hover:text-purple-400">Results</a>
-                  <a href="/leaderboard" className="block text-gray-400 hover:text-purple-400">Leaderboard</a>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Games</h4>
-                <div className="space-y-2">
-                  <a href="/bgmi" className="block text-gray-400 hover:text-purple-400">BGMI</a>
-                  <a href="/free-fire" className="block text-gray-400 hover:text-purple-400">Free Fire</a>
-                  <a href="/valorant" className="block text-gray-400 hover:text-purple-400">Valorant</a>
-                  <a href="/cod-mobile" className="block text-gray-400 hover:text-purple-400">COD Mobile</a>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Support</h4>
-                <div className="space-y-2">
-                  <a href="/help" className="block text-gray-400 hover:text-purple-400">Help Center</a>
-                  <a href="/rules" className="block text-gray-400 hover:text-purple-400">Tournament Rules</a>
-                  <a href="/contact" className="block text-gray-400 hover:text-purple-400">Contact</a>
-                  <a href="/discord" className="block text-gray-400 hover:text-purple-400">Discord</a>
-                </div>
-              </div>
-            </div>
-            
-            <div className="border-t border-purple-500/20 mt-8 pt-8 text-center text-gray-400">
-              <p>&copy; 2025 Spirit Esports. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
+        <nav>
+            <Footer />
+        </nav>
       </div>
     </div>
   );

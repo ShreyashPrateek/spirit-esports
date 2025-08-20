@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
 import { Play, Trophy, Users, Zap, ChevronDown, Star, ArrowRight, Swords } from 'lucide-react';
+import Footer from './Footer';
 
 export default function SpiritEsportsLanding() {
   const [isMenuOpen] = useState(false);
@@ -353,57 +354,9 @@ export default function SpiritEsportsLanding() {
         </section>
 
         {/* Footer */}
-        <footer className="bg-black border-t border-purple-500/20 py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-4 gap-8">
-              <div>
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                    <Swords className="w-5 h-5" />
-                  </div>
-                  <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                    SPIRIT ESPORTS
-                  </span>
-                </div>
-                <p className="text-gray-400">India's premier BGMI tournament platform for mobile gaming enthusiasts.</p>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Tournaments</h4>
-                <div className="space-y-2">
-                  <a href="/BGMI Championship" className="block text-gray-400 hover:text-purple-400">BGMI Championship</a>
-                  <a href="/Squad Showdown" className="block text-gray-400 hover:text-purple-400">Squad Showdown</a>
-                  <a href="/Solo Masters" className="block text-gray-400 hover:text-purple-400">Solo Masters</a>
-                  <a href="/Weekly Clash" className="block text-gray-400 hover:text-purple-400">Weekly Clash</a>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Company</h4>
-                <div className="space-y-2">
-                  <a href="/About" className="block text-gray-400 hover:text-purple-400">About</a>
-                  <a href="/Careers" className="block text-gray-400 hover:text-purple-400">Careers</a>
-                  <a href="/Press" className="block text-gray-400 hover:text-purple-400">Press</a>
-                  <a href="/Contact" className="block text-gray-400 hover:text-purple-400">Contact</a>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Community</h4>
-                <div className="space-y-2">
-                  <a href="/Discord" className="block text-gray-400 hover:text-purple-400">Discord</a>
-                  <a href="/Twitter" className="block text-gray-400 hover:text-purple-400">Twitter</a>
-                  <a href="/YouTube" className="block text-gray-400 hover:text-purple-400">YouTube</a>
-                  <a href="/Twitch" className="block text-gray-400 hover:text-purple-400">Twitch</a>
-                </div>
-              </div>
-            </div>
-            
-            <div className="border-t border-purple-500/20 mt-8 pt-8 text-center text-gray-400">
-              <p>&copy; 2025 Spirit Esports. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
+        <nav>
+          <Footer />
+        </nav>
       </div>
     </div>
   );

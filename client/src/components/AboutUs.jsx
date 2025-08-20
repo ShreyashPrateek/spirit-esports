@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Trophy, Users, Zap, Target, Shield, Star, ArrowRight, Play, GamepadIcon } from 'lucide-react';
 import Header from './Header';
+import Footer from './Footer';
 
 export default function AboutUs() {
   const [scrollY, setScrollY] = useState(0);
@@ -329,56 +330,9 @@ export default function AboutUs() {
         </section>
 
         {/* Footer */}
-        <footer className="bg-black border-t border-purple-500/20 py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-4 gap-8">
-              <div>
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                    <GamepadIcon className="w-5 h-5" />
-                  </div>
-                  <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                    SPIRIT ESPORTS
-                  </span>
-                </div>
-                <p className="text-gray-400">Powering gaming dreams across India.</p>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">About</h4>
-                <div className="space-y-2">
-                  <a href="/story" className="block text-gray-400 hover:text-purple-400">Our Story</a>
-                  <a href="/team" className="block text-gray-400 hover:text-purple-400">Team</a>
-                  <a href="/careers" className="block text-gray-400 hover:text-purple-400">Careers</a>
-                  <a href="/press" className="block text-gray-400 hover:text-purple-400">Press</a>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Services</h4>
-                <div className="space-y-2">
-                  <a href="/game-hosting" className="block text-gray-400 hover:text-purple-400">Pro-Grade Gaming Experience</a>
-                  <a href="/organiser-support" className="block text-gray-400 hover:text-purple-400">Fair Play & Player Support</a>
-                  <a href="/custom-tournaments" className="block text-gray-400 hover:text-purple-400">Exciting & Custom Tournaments</a>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-4">Community</h4>
-                <div className="space-y-2">
-                  <a href="/discord" className="block text-gray-400 hover:text-purple-400">Discord</a>
-                  <a href="/twitter" className="block text-gray-400 hover:text-purple-400">Twitter</a>
-                  <a href="/youtube" className="block text-gray-400 hover:text-purple-400">YouTube</a>
-                  <a href="/instagram" className="block text-gray-400 hover:text-purple-400">Instagram</a>
-                </div>
-              </div>
-            </div>
-            
-            <div className="border-t border-purple-500/20 mt-8 pt-8 text-center text-gray-400">
-              <p>&copy; 2025 Spirit Esports. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
+        <nav>
+            <Footer />
+        </nav>
       </div>
     </div>
   );
