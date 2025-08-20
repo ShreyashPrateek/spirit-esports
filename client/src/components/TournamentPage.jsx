@@ -24,6 +24,32 @@ const TournamentPage = () => {
   const tournaments = useMemo(() => [
     {
       id: 1,
+      name: "Spirit Open Custom",
+      type: "squad",
+      status: "completed",
+      date: "2020-06-20",
+      endDate: "2020-06-22",
+      prizePool: 500,
+      participants: { current: 60, max: 60 },
+      image: "/images/spiritOpen.jpg",
+      stage: "Completed",
+      winner: "FragX"
+    },
+    {
+      id: 2,
+      name: "PUBG Mobile Grand League",
+      type: "squad",
+      status: "completed",
+      date: "2020-07-10",
+      endDate: "2020-07-12",
+      prizePool: 500,
+      participants: { current: 60, max: 60 },
+      image: "/images/pmgl.jpg",
+      stage: "Completed",
+      winner: "Rivals4U"
+    },
+    {
+      id: 3,
       name: "PUBG Mobile Spirit League",
       type: "squad",
       status: "completed",
@@ -33,10 +59,10 @@ const TournamentPage = () => {
       participants: { current: 60, max: 60 },
       image: "/images/pmsl.jpg",
       stage: "Completed",
-      winner: "To Be Listed Later"
+      winner: "Fight Till Death"
     },
     {
-      id: 2,
+      id: 4,
       name: "Spirit Winter League (SWL)",
       type: "squad",
       status: "completed",
@@ -46,10 +72,10 @@ const TournamentPage = () => {
       participants: { current: 66, max: 66 },
       image: "/images/SWL.jpeg",
       stage: "Completed",
-      winner: "To Be Listed Later"
+      winner: "Team TYRO"
     },
     {
-      id: 3,
+      id: 5,
       name: "Spirit Battle Ground League Season 1 (SBGL S1)",
       type: "squad",
       status: "completed",
@@ -62,7 +88,7 @@ const TournamentPage = () => {
       winner: "To Be Listed Later"
     },
     {
-      id: 4,
+      id: 6,
       name: "This is a demo data for upcoming",
       type: "squad",
       status: "upcoming",
@@ -76,7 +102,7 @@ const TournamentPage = () => {
       winner: null
     },
     {
-      id: 5,
+      id: 7,
       name: "This is demo data for ongoing",
       type: "squad",
       status: "ongoing",
