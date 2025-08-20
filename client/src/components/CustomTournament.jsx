@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Trophy, Users,  ChevronDown, ArrowRight, Swords, Clock, Target, Crown, Gamepad2, Award, Settings } from 'lucide-react';
+import { Trophy, Users,  ChevronDown, ArrowRight, Clock, Target, Crown, Gamepad2, Award, Settings } from 'lucide-react';
 
 export default function ExcitingCustomTournaments() {
   const [isMenuOpen] = useState(false);

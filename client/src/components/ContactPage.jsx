@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Send, X, User, Phone, Mail, MessageSquare, FileText, Swords, MapPin, Clock, Users } from 'lucide-react';
+import { Send, X, User, Phone, Mail, MessageSquare, FileText, MapPin, Clock, Users } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({

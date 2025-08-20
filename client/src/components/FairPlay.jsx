@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Shield, Clock, AlertTriangle, MessageSquare, Headphones, ArrowRight, Swords, Eye, Ban, FileText } from 'lucide-react';
+import { Shield, Clock, AlertTriangle, MessageSquare, Headphones, ArrowRight, Eye, Ban, FileText } from 'lucide-react';
 
 export default function FairPlaySupport() {
   const [scrollY, setScrollY] = useState(0);
