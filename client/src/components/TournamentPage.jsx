@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Calendar, Trophy, Clock, Target, Filter, ChevronLeft, ChevronRight, Play, GamepadIcon, ArrowRight } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
+import { supabase } from '../supabaseClient';
 
 const TournamentPage = () => {
   const [filters, setFilters] = useState({
@@ -12,109 +13,32 @@ const TournamentPage = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [scrollY, setScrollY] = useState(0);
+  const [tournaments, setTournaments] = useState([]);
   const tournamentsPerPage = 6;
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
+
+    const fetchTournaments = async () => {
+      console.log('Fetching tournaments from Supabase...');
+      const { data, error } = await supabase
+        .from('tournaments')
+        .select('*');
+
+      console.log('Supabase response:', { data, error });
+      
+      if (error) {
+        console.error('Error fetching tournaments:', error);
+      } else {
+        console.log('Tournaments fetched:', data);
+        setTournaments(data || []);
+      }
+    };
+
+    fetchTournaments();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Sample tournament data
-  const tournaments = useMemo(() => [
-    {
-      id: 1,
-      name: "Spirit Open Custom",
-      type: "squad",
-      status: "completed",
-      date: "2020-06-20",
-      endDate: "2020-06-22",
-      prizePool: 500,
-      participants: { current: 60, max: 60 },
-      image: "/images/spiritOpen.jpg",
-      stage: "Completed",
-      winner: "FragX"
-    },
-    {
-      id: 2,
-      name: "PUBG Mobile Grand League",
-      type: "squad",
-      status: "completed",
-      date: "2020-07-10",
-      endDate: "2020-07-12",
-      prizePool: 500,
-      participants: { current: 60, max: 60 },
-      image: "/images/pmgl.jpg",
-      stage: "Completed",
-      winner: "Rivals4U"
-    },
-    {
-      id: 3,
-      name: "PUBG Mobile Spirit League",
-      type: "squad",
-      status: "completed",
-      date: "2020-09-20",
-      endDate: "2020-09-23",
-      prizePool: 500,
-      participants: { current: 60, max: 60 },
-      image: "/images/pmsl.jpg",
-      stage: "Completed",
-      winner: "Fight Till Death"
-    },
-    {
-      id: 4,
-      name: "Spirit Winter League (SWL)",
-      type: "squad",
-      status: "completed",
-      date: "2020-12-19",
-      endDate: "2020-12-22",
-      prizePool: 500,
-      participants: { current: 66, max: 66 },
-      image: "/images/SWL.jpeg",
-      stage: "Completed",
-      winner: "Team TYRO"
-    },
-    {
-      id: 5,
-      name: "Spirit Battle Ground League Season 1 (SBGL S1)",
-      type: "squad",
-      status: "completed",
-      date: "2021-07-08",
-      endDate: "2021-07-12",
-      prizePool: 1000,
-      participants: { current: 100, max: 100 },
-      image: "/images/SBGL-S1.jpg",
-      stage: "Completed",
-      winner: "To Be Listed Later"
-    },
-    {
-      id: 6,
-      name: "This is a demo data for upcoming",
-      type: "squad",
-      status: "upcoming",
-      date: "2024-06-22",
-      time: "7:00 PM",
-      entryFee: 300,
-      prizePool: 25000,
-      participants: { current: 42, max: 50 },
-      image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=200&fit=crop",
-      stage: null,
-      winner: null
-    },
-    {
-      id: 7,
-      name: "This is demo data for ongoing",
-      type: "squad",
-      status: "ongoing",
-      date: "2024-05-28",
-      endDate: "2024-06-10",
-      prizePool: 75000,
-      participants: { current: 64, max: 64 },
-      image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=400&h=200&fit=crop",
-      stage: "Quarter Finals",
-      winner: null
-    },
-  ], []);
 
   // Filter tournaments based on selected filters
   const filteredTournaments = useMemo(() => {
@@ -132,7 +56,7 @@ const TournamentPage = () => {
     filtered.sort((a, b) => {
       switch (filters.sort) {
         case 'prize':
-          return b.prizePool - a.prizePool;
+          return (b.prize_pool || 0) - (a.prize_pool || 0);
         case 'name':
           return a.name.localeCompare(b.name);
         case 'date-oldest':
@@ -240,25 +164,27 @@ const TournamentPage = () => {
           {tournament.entryFee && (
             <div className="flex justify-between items-center">
               <span className="text-gray-400 text-sm">Entry Fee:</span>
-              <span className="text-white font-medium">₹{tournament.entryFee.toLocaleString()}</span>
+              <span className="text-white font-medium">₹{tournament.entryFee?.toLocaleString() || '0'}</span>
             </div>
           )}
           
           <div className="flex justify-between items-center">
             <span className="text-gray-400 text-sm">Prize Pool:</span>
             <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent font-bold text-lg">
-              ₹{tournament.prizePool.toLocaleString()}
+              ₹{tournament.prize_pool?.toLocaleString() || '0'}
             </span>
           </div>
           
-          <div className="flex justify-between items-center">
-            <span className="text-gray-400 text-sm">
-              {tournament.type === 'solo' ? 'Players:' : 'Teams:'}
-            </span>
-            <span className="text-white font-medium">
-              {tournament.participants.current}/{tournament.participants.max}
-            </span>
-          </div>
+          {tournament.participants && (
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400 text-sm">
+                {tournament.type === 'solo' ? 'Players:' : 'Teams:'}
+              </span>
+              <span className="text-white font-medium">
+                {tournament.participants?.current || 0}/{tournament.participants?.max || 0}
+              </span>
+            </div>
+          )}
           
           {tournament.stage && (
             <div className="flex justify-between items-center">

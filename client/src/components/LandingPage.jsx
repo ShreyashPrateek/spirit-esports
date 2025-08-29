@@ -2,52 +2,73 @@ import { useState, useEffect } from 'react';
 import Header from './Header';
 import { Play, Trophy, Users, Zap, ChevronDown, Star, ArrowRight } from 'lucide-react';
 import Footer from './Footer';
+import { supabase } from '../supabaseClient';
 
 export default function SpiritEsportsLanding() {
   const [isMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [isStreamComingSoon, setIsStreamComingSoon] = useState(true); // Control coming soon state
+  const [tournaments, setTournaments] = useState([]);
+
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
+
+        // Fetch tournaments from Supabase
+    const fetchTournaments = async () => {
+      const { data, error } = await supabase
+        .from('tournaments')
+        .select('*')
+        .order('date', { ascending: false })
+        .limit(4); // Let's fetch 4 tournaments for now
+
+      if (error) {
+        console.error('Error fetching tournaments:', error);
+      } else {
+        setTournaments(data);
+      }
+    };
+
+    fetchTournaments();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const tournaments = [
-    { 
-      name: "BGMI Championship", 
-      prize: "₹5,00,000", 
-      image: "🏆",
-      date: "March 15, 2025",
-      teams: "128 Teams",
-      status: "Registration Open"
-    },
-    { 
-      name: "Squad Showdown", 
-      prize: "₹2,00,000", 
-      image: "🎯",
-      date: "March 25, 2025", 
-      teams: "64 Teams",
-      status: "Coming Soon"
-    },
-    { 
-      name: "Solo Masters", 
-      prize: "₹1,00,000", 
-      image: "👑",
-      date: "April 5, 2025",
-      teams: "200 Players", 
-      status: "Registration Open"
-    },
-    { 
-      name: "Weekly Clash", 
-      prize: "₹50,000", 
-      image: "⚡",
-      date: "Every Sunday",
-      teams: "32 Teams",
-      status: "Ongoing"
-    }
-  ];
+  // const tournaments = [
+  //   { 
+  //     name: "BGMI Championship", 
+  //     prize: "₹5,00,000", 
+  //     image: "🏆",
+  //     date: "March 15, 2025",
+  //     teams: "128 Teams",
+  //     status: "Registration Open"
+  //   },
+  //   { 
+  //     name: "Squad Showdown", 
+  //     prize: "₹2,00,000", 
+  //     image: "🎯",
+  //     date: "March 25, 2025", 
+  //     teams: "64 Teams",
+  //     status: "Coming Soon"
+  //   },
+  //   { 
+  //     name: "Solo Masters", 
+  //     prize: "₹1,00,000", 
+  //     image: "👑",
+  //     date: "April 5, 2025",
+  //     teams: "200 Players", 
+  //     status: "Registration Open"
+  //   },
+  //   { 
+  //     name: "Weekly Clash", 
+  //     prize: "₹50,000", 
+  //     image: "⚡",
+  //     date: "Every Sunday",
+  //     teams: "32 Teams",
+  //     status: "Ongoing"
+  //   }
+  // ];
 
   const features = [
     {
@@ -259,55 +280,59 @@ export default function SpiritEsportsLanding() {
           </div>
         </section>
 
-        {/* BGMI Tournaments Section */}
-        <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+        {/* Upcoming Tournaments Section */}
+        <section className="py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  BGMI Tournaments
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold">
+                <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  Upcoming Tournaments
                 </span>
               </h2>
-              <p className="text-xl text-gray-300">Join the biggest mobile gaming tournaments in India</p>
+              <p className="mt-4 text-lg text-gray-400">
+                Your next challenge awaits. Register now and prove your skills.
+              </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {tournaments.map((tournament, index) => (
-                <div key={index} className="group relative bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all transform hover:scale-105 hover:-translate-y-2">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="text-3xl">{tournament.image}</div>
-                    <span className={`px-3 py-1 text-xs rounded-full ${
-                      tournament.status === 'Registration Open' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
-                      tournament.status === 'Coming Soon' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' :
-                      'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                    }`}>
-                      {tournament.status}
-                    </span>
+            {/* Tournament Cards Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {tournaments.map((tournament) => (
+                <div 
+                  key={tournament.id} 
+                  className="bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl overflow-hidden border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2"
+                >
+                  <img 
+                    className="w-full h-40 object-cover" 
+                    src={tournament.image || '/images/spiritOpen.jpg'} // Use a fallback image
+                    alt={tournament.name} 
+                  />
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold text-white mb-2 truncate">{tournament.name}</h3>
+                    <p className="text-sm text-gray-400 mb-4">{new Date(tournament.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-gray-400 text-sm">Prize Pool</span>
+                      <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent font-bold">
+                        ₹{tournament.prizePool.toLocaleString()}
+                      </span>
+                    </div>
+                    <button className="w-full px-4 py-2 bg-purple-600/50 border border-purple-500 rounded-lg text-sm font-semibold hover:bg-purple-600 transition-colors">
+                      View Details
+                    </button>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{tournament.name}</h3>
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Prize Pool:</span>
-                      <span className="text-purple-400 font-semibold">{tournament.prize}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Date:</span>
-                      <span className="text-white">{tournament.date}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Slots:</span>
-                      <span className="text-white">{tournament.teams}</span>
-                    </div>
-                  </div>
-                  <button className="w-full py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform group-hover:scale-105">
-                    {tournament.status === 'Registration Open' ? 'Register Now' : 
-                     tournament.status === 'Coming Soon' ? 'Notify Me' : 'View Details'}
-                  </button>
                 </div>
               ))}
             </div>
+            
+            <div className="text-center mt-12">
+              <a href="/tournament" className="group inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700">
+                View All Tournaments
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
           </div>
         </section>
+
+
 
         {/* Features Section */}
         <section className="py-20">

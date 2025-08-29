@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { User, Mail, Lock, Upload, Eye, EyeOff, GamepadIcon } from 'lucide-react';
 import Header from './Header';
+import { supabase } from '../supabaseClient';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -14,12 +15,16 @@ const SignUp = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [previewImage, setPreviewImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,10 +61,77 @@ const SignUp = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    setLoading(true);
+    setError('');
+
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // Sign up user with Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (authError) throw authError;
+
+      // Upload profile picture if provided
+      let profilePictureUrl = null;
+      if (formData.profilePicture) {
+        const fileExt = formData.profilePicture.name.split('.').pop();
+        const fileName = `${authData.user.id}.${fileExt}`;
+        
+        const { error: uploadError } = await supabase.storage
+          .from('profile-pictures')
+          .upload(fileName, formData.profilePicture);
+
+        if (!uploadError) {
+          const { data: { publicUrl } } = supabase.storage
+            .from('profile-pictures')
+            .getPublicUrl(fileName);
+          profilePictureUrl = publicUrl;
+        }
+      }
+
+      // Create profile immediately
+      const { error: profileError } = await supabase
+        .from('profile')
+        .insert({
+          id: authData.user.id,
+          email: formData.email,
+          phone: formData.phone,
+          profile_picture: profilePictureUrl,
+          created_at: new Date().toISOString()
+        });
+
+      if (profileError) {
+        console.error('Profile creation error:', profileError);
+      }
+
+      alert('Account created successfully! Please check your email to verify your account.');
+      
+      // Reset form
+      setFormData({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        phone: '',
+        profilePicture: null
+      });
+      setPreviewImage(null);
+      
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -113,6 +185,12 @@ const SignUp = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Error Message */}
+                {error && (
+                  <div className="bg-red-500/20 border border-red-500/30 text-red-300 px-4 py-3 rounded-lg text-sm">
+                    {error}
+                  </div>
+                )}
                 {/* Profile Picture Upload */}
                 <div className="text-center">
                   <div className="relative inline-block">
@@ -232,9 +310,10 @@ const SignUp = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white py-3 px-4 rounded-lg transition-all duration-200 font-medium transform hover:scale-105"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white py-3 px-4 rounded-lg transition-all duration-200 font-medium transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  Create Account
+                  {loading ? 'Creating Account...' : 'Create Account'}
                 </button>
 
                 {/* Login Link */}
