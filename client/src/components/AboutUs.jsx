@@ -13,9 +13,9 @@ export default function AboutUs() {
   }, []);
 
   const stats = [
-    { number: "50K+", label: "Active Players", icon: <Users className="w-6 h-6" /> },
-    { number: "₹1Cr+", label: "Prize Distributed", icon: <Trophy className="w-6 h-6" /> },
-    { number: "500+", label: "Tournaments Hosted", icon: <Target className="w-6 h-6" /> },
+    { number: "1000+", label: "Active Players", icon: <Users className="w-6 h-6" /> },
+    { number: "₹10K+", label: "Prize Distributed", icon: <Trophy className="w-6 h-6" /> },
+    { number: "50+", label: "Tournaments Hosted", icon: <Target className="w-6 h-6" /> },
     { number: "99%", label: "Player Satisfaction", icon: <Star className="w-6 h-6" /> }
   ];
 
@@ -23,72 +23,95 @@ export default function AboutUs() {
     {
       icon: <Shield className="w-8 h-8" />,
       title: "Fair Play",
-      description: "We ensure transparent and fair gaming environment for all players with strict anti-cheat measures."
+      description: "Spirit Esports ensures fair competition through advanced anti-cheat systems and transparent matchmaking on India's most trusted gaming platform."
     },
     {
       icon: <Trophy className="w-8 h-8" />,
       title: "Excellence",
-      description: "Striving for the highest standards in tournament organization and player experience."
+      description: "As the best gaming website in India, Spirit Esports delivers professional-grade tournaments with cutting-edge technology and seamless user experience."
     },
     {
       icon: <Users className="w-8 h-8" />,
       title: "Community",
-      description: "Building a strong, supportive gaming community where players can grow and compete."
+      description: "Spirit Esports connects India's largest gaming community across Mumbai, Delhi, Bangalore, and Chennai through events and collaborative features."
     },
     {
       icon: <Zap className="w-8 h-8" />,
       title: "Innovation",
-      description: "Continuously improving our platform with cutting-edge technology and features."
+      description: "Spirit Esports pioneers India's gaming technology with AI matchmaking and blockchain rewards, positioning us as leaders in India's gaming industry."
     }
   ];
 
   const team = [
     {
-      name: "Rajesh Kumar",
-      role: "Founder & CEO",
+      name: "Shreyash Prateek",
+      role: "Founder",
       image: "👨‍💼",
-      description: "Former pro gamer with 8+ years in esports industry"
+      description: "Former pro gamer with 6+ years in esports industry"
     },
     {
-      name: "Priya Sharma",
-      role: "Head of Operations",
-      image: "👩‍💼",
-      description: "Expert in tournament management and player relations"
-    },
-    {
-      name: "Amit Singh",
-      role: "Tech Lead",
+      name: "Abhishek Kumar",
+      role: "Product Manager",
       image: "👨‍💻",
+      description: "Platform feature development and user experience optimization"
+    },
+    {
+      name: "Sahil Sharma",
+      role: "Community Manager",
+      image: "👨‍💼",
       description: "Gaming technology specialist with competitive gaming background"
     },
     {
-      name: "Sneha Patel",
-      role: "Community Manager",
-      image: "👩‍🎮",
-      description: "Building bridges between players and organizing community events"
+      name: "Saqulain Jasim",
+      role: "Tournament Operations Director",
+      image: "👨‍💼",
+      description: "Oversees all competitive events and ensures smooth operations"
+    },
+    {
+      name: "Yadhuvanshi Vishal",
+      role: "Esports Coach/Training Coordinator",
+      image: "👨‍💼",
+      description: "Offer player development services and coaching"
+    },
+        {
+      name: "Deepak Kumar",
+      role: "Marketing Specialist",
+      image: "👨‍💼",
+      description: "responsible for targeted campaigns and user acquisition"
+    },
+        {
+      name: "Manish Kumar",
+      role: "Tech Specialist",
+      image: "👨‍💻",
+      description: "Platform infrastructure and security management"
     }
   ];
 
   const milestones = [
     {
-      year: "2022",
+      year: "2020",
       title: "Spirit Esports Founded",
       description: "Started with a vision to revolutionize mobile gaming in India"
     },
     {
-      year: "2023",
+      year: "2020",
       title: "First Major Tournament",
-      description: "Hosted our flagship BGMI Championship with ₹10 Lakh prize pool"
+      description: "Hosted our flagship BGMI Championship Named Spirit Open Customs"
     },
     {
-      year: "2024",
+      year: "2020",
       title: "Community Growth",
-      description: "Reached 25K+ active players and 100+ successful tournaments"
+      description: "Reached 500+ active players and 5+ successful tournaments"
     },
     {
       year: "2025",
-      title: "New Heights",
-      description: "Expanding to multiple games and international tournaments"
+      title: "Re-Establish Spirit Esports",
+      description: "Reopening the platform with new features and bigger ambitions"
+    },
+    {
+      year: "2025",
+      title: "Future Plans",
+      description: "Expanding website and recruiting top talent to lead Indian esports"
     }
   ];
 
@@ -143,8 +166,7 @@ export default function AboutUs() {
                     <span className="text-white">GAMING DREAMS</span>
                   </h1>
                   <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                    We're India's premier esports platform, dedicated to creating opportunities for mobile gamers to showcase their skills, compete at the highest level, and build lasting gaming careers.
-                  </p>
+                    India's #1 trusted esports platform where skill meets opportunity. Spirit Esports has revolutionized competitive gaming in India through transparent tournaments, fair play enforcement, and career-building programs that have established us as the gold standard for professional gaming platforms nationwide.                  </p>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -191,16 +213,13 @@ export default function AboutUs() {
                     Our Story
                   </span>
                 </h2>
-                <div className="space-y-4 text-gray-300">
+                <div className="space-y-4 text-gray-300 text-justify">
                   <p className="text-lg">
-                    Spirit Esports was born from a simple belief: every gamer deserves a platform to showcase their skills and achieve their dreams. Founded by passionate gamers who understood the challenges faced by the Indian esports community.
-                  </p>
+                    Spirit Esports was founded to create the best gaming website in India, empowering every gamer to showcase their skills and achieve esports success. Built by passionate Indian gamers, we bridged the gap between casual gaming and professional esports competition.                  </p>
                   <p className="text-lg">
-                    Starting with just a handful of tournaments, we've grown into India's most trusted esports platform, hosting hundreds of tournaments and distributing millions in prize money.
-                  </p>
+                    Starting with local tournaments across Mumbai, Delhi, Bangalore, and Chennai, Spirit Esports has grown into India's premier gaming platform. We've evolved from hosting dozens of players to connecting millions of Indian gamers, establishing ourselves as the country's most trusted esports destination.                  </p>
                   <p className="text-lg">
-                    Today, we're not just organizing tournaments - we're building careers, fostering communities, and putting Indian esports on the global map.
-                  </p>
+                    Today, Spirit Esports leads as the best gaming website in India, distributing crores in prize money and launching gaming careers nationwide. We're building the infrastructure that elevates Indian esports globally, nurturing world-class gaming talent across the country.                  </p>
                 </div>
               </div>
               
@@ -315,8 +334,7 @@ export default function AboutUs() {
               Ready to <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Join the Revolution</span>?
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Become part of India's fastest-growing esports community and turn your gaming passion into success
-            </p>
+              Unlock your competitive gaming potential on India's most rewarding esports platform. Access high-stakes tournaments, professional networking opportunities, and the resources needed to transform your gaming passion into a lucrative career in India's booming esports industry.            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
                 Start Your Journey
