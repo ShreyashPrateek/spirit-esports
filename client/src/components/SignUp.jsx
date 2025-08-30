@@ -50,6 +50,19 @@ const SignUp = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('File size must be less than 5MB');
+        return;
+      }
+
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setError('Please select a valid image file');
+        return;
+      }
+
+      setError(''); // Clear any previous errors
       setFormData(prev => ({
         ...prev,
         profilePicture: file
@@ -85,18 +98,33 @@ const SignUp = () => {
       // Upload profile picture if provided
       let profilePictureUrl = null;
       if (formData.profilePicture) {
-        const fileExt = formData.profilePicture.name.split('.').pop();
-        const fileName = `${authData.user.id}.${fileExt}`;
-        
-        const { error: uploadError } = await supabase.storage
-          .from('profile-pictures')
-          .upload(fileName, formData.profilePicture);
+        try {
+          // Ensure bucket exists
+          const { error: bucketError } = await supabase.storage.createBucket('profile-pictures', { public: true });
+          if (bucketError && !bucketError.message.includes('already exists')) {
+            console.error('Bucket creation error:', bucketError);
+          }
 
-        if (!uploadError) {
-          const { data: { publicUrl } } = supabase.storage
+          const fileExt = formData.profilePicture.name.split('.').pop().toLowerCase();
+          const fileName = `${authData.user.id}-${Date.now()}.${fileExt}`;
+          
+          const { error: uploadError } = await supabase.storage
             .from('profile-pictures')
-            .getPublicUrl(fileName);
-          profilePictureUrl = publicUrl;
+            .upload(fileName, formData.profilePicture);
+
+          if (uploadError) {
+            console.error('Upload error:', uploadError);
+            // Continue without profile picture instead of failing
+            profilePictureUrl = null;
+          } else {
+            const { data: { publicUrl } } = supabase.storage
+              .from('profile-pictures')
+              .getPublicUrl(fileName);
+            profilePictureUrl = publicUrl;
+          }
+        } catch (err) {
+          console.error('Profile picture upload failed:', err);
+          profilePictureUrl = null;
         }
       }
 
