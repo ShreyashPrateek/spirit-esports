@@ -73,11 +73,17 @@ export default function AboutUs() {
       image: "👨‍💼",
       description: "Offer player development services and coaching"
     },
-        {
+    {
       name: "Deepak Kumar",
       role: "Marketing Specialist",
       image: "👨‍💼",
       description: "Responsible for targeted campaigns and user acquisition"
+    },
+    {
+      name: "Karan Singh",
+      role: "Content Creator",
+      image: "👨‍💼",
+      description: "Creates engaging content and articles to help players understand esports"
     },
   ];
 
