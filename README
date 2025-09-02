@@ -1,16 +1,13 @@
 # 🎮 Spirit Esports - BGMI Tournament Platform
 
-<div align="center">
+<p align="center">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
   <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
   <img src="https://img.shields.io/badge/Lucide-000000?style=for-the-badge&logo=lucide&logoColor=white" alt="Lucide Icons" />
-</div>
-
-<div align="center">
-  <h3>🏆 India's Premier BGMI Tournament Platform 🏆</h3>
-  <p><em>Compete with the best squads, win massive prizes, and become a mobile gaming legend</em></p>
-</div>
+</p>
+<h3 align="center">🏆 India's Premier BGMI Tournament Platform 🏆</h3>
+<p align="center"><em>Compete with the best squads, win massive prizes, and become a mobile gaming legend</em></p>
 
 ---
 
