@@ -77,14 +77,8 @@ export default function AboutUs() {
       name: "Deepak Kumar",
       role: "Marketing Specialist",
       image: "👨‍💼",
-      description: "responsible for targeted campaigns and user acquisition"
+      description: "Responsible for targeted campaigns and user acquisition"
     },
-        {
-      name: "Manish Kumar",
-      role: "Tech Specialist",
-      image: "👨‍💻",
-      description: "Platform infrastructure and security management"
-    }
   ];
 
   const milestones = [
