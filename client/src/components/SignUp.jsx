@@ -245,7 +245,7 @@ const SignUp = () => {
                   <p className="text-xs text-gray-400 mt-2">Upload profile picture</p>
                 </div>
 
-                {/* Email */}
+                {/* name */}
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">Name</label>
                   <div className="relative">
