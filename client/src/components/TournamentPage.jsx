@@ -137,7 +137,7 @@ const TournamentPage = () => {
       <div className="relative overflow-hidden">
         <img 
           className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110" 
-          src={tournament.image} 
+          src={tournament.image_url} 
           alt={tournament.name}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
