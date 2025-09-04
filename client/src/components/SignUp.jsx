@@ -5,6 +5,7 @@ import { supabase } from '../supabaseClient';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -133,6 +134,7 @@ const SignUp = () => {
         .from('profile')
         .insert({
           id: authData.user.id,
+          name : formData.name,
           email: formData.email,
           phone: formData.phone,
           profile_picture: profilePictureUrl,
@@ -147,6 +149,7 @@ const SignUp = () => {
       
       // Reset form
       setFormData({
+        name: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -240,6 +243,23 @@ const SignUp = () => {
                     </label>
                   </div>
                   <p className="text-xs text-gray-400 mt-2">Upload profile picture</p>
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full bg-gray-800/50 border border-gray-600 text-white rounded-lg pl-10 pr-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                      placeholder="Enter your name"
+                      required
+                    />
+                  </div>
                 </div>
 
                 {/* Email */}
