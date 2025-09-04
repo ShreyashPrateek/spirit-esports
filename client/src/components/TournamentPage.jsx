@@ -155,7 +155,7 @@ const TournamentPage = () => {
         <div className="flex items-center text-gray-400 text-sm mb-4">
           <Calendar className="h-4 w-4 mr-2 flex-shrink-0" />
           <span>
-            {formatDate(tournament.date, tournament.endDate)}
+            {formatDate(tournament.start_date, tournament.end_date)}
             {tournament.time && ` - ${tournament.time}`}
           </span>
         </div>
