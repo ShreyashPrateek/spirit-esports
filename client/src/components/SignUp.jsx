@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { User, Mail, Lock, Upload, Eye, EyeOff, GamepadIcon } from 'lucide-react';
 import Header from './Header';
-import { supabase } from '../supabaseClient';
+import { authAPI } from '../services/api';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -80,86 +80,56 @@ const SignUp = () => {
     setLoading(true);
     setError('');
 
-    // Validate passwords match
+    // Client-side validation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       setLoading(false);
       return;
     }
 
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters');
+      setLoading(false);
+      return;
+    }
+
+    if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+      setError('Please enter a valid 10-digit phone number');
+      setLoading(false);
+      return;
+    }
+
     try {
-      // Sign up user with Supabase Auth
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      // Call Express API for registration
+      const result = await authAPI.register({
+        name: formData.name,
         email: formData.email,
         password: formData.password,
+        phone: formData.phone
       });
 
-      if (authError) throw authError;
-
-      // Upload profile picture if provided
-      let profilePictureUrl = null;
-      if (formData.profilePicture) {
-        try {
-          // Ensure bucket exists
-          const { error: bucketError } = await supabase.storage.createBucket('profile-pictures', { public: true });
-          if (bucketError && !bucketError.message.includes('already exists')) {
-            console.error('Bucket creation error:', bucketError);
-          }
-
-          const fileExt = formData.profilePicture.name.split('.').pop().toLowerCase();
-          const fileName = `${authData.user.id}-${Date.now()}.${fileExt}`;
-          
-          const { error: uploadError } = await supabase.storage
-            .from('profile-pictures')
-            .upload(fileName, formData.profilePicture);
-
-          if (uploadError) {
-            console.error('Upload error:', uploadError);
-            // Continue without profile picture instead of failing
-            profilePictureUrl = null;
-          } else {
-            const { data: { publicUrl } } = supabase.storage
-              .from('profile-pictures')
-              .getPublicUrl(fileName);
-            profilePictureUrl = publicUrl;
-          }
-        } catch (err) {
-          console.error('Profile picture upload failed:', err);
-          profilePictureUrl = null;
-        }
-      }
-
-      // Create profile immediately
-      const { error: profileError } = await supabase
-        .from('profile')
-        .insert({
-          id: authData.user.id,
-          name : formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          profile_picture: profilePictureUrl,
-          created_at: new Date().toISOString()
+      if (result.success) {
+        alert('Account created successfully! Welcome to Spirit Esports!');
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          phone: '',
+          profilePicture: null
         });
-
-      if (profileError) {
-        console.error('Profile creation error:', profileError);
+        setPreviewImage(null);
+        
+        // Redirect to login or dashboard
+        window.location.href = '/login';
+      } else {
+        setError(result.error);
       }
-
-      alert('Account created successfully! Please check your email to verify your account.');
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        phone: '',
-        profilePicture: null
-      });
-      setPreviewImage(null);
       
     } catch (error) {
-      setError(error.message);
+      setError('Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -222,28 +192,7 @@ const SignUp = () => {
                     {error}
                   </div>
                 )}
-                {/* Profile Picture Upload */}
-                <div className="text-center">
-                  <div className="relative inline-block">
-                    <div className="w-24 h-24 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full border-2 border-purple-500/30 flex items-center justify-center overflow-hidden">
-                      {previewImage ? (
-                        <img src={previewImage} alt="Preview" className="w-full h-full object-cover" />
-                      ) : (
-                        <User className="w-8 h-8 text-gray-400" />
-                      )}
-                    </div>
-                    <label className="absolute bottom-0 right-0 w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center cursor-pointer hover:from-purple-600 hover:to-blue-600 transition-all">
-                      <Upload className="w-4 h-4" />
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        className="hidden"
-                      />
-                    </label>
-                  </div>
-                  <p className="text-xs text-gray-400 mt-2">Upload profile picture</p>
-                </div>
+
 
                 {/* name */}
                 <div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Lock, Eye, EyeOff, GamepadIcon } from 'lucide-react';
 import Header from './Header';
-import { supabase } from '../supabaseClient';
+import { authAPI } from '../services/api';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -32,20 +32,27 @@ const Login = () => {
     setLoading(true);
     setError('');
 
+    // Client-side validation
+    if (!formData.email || !formData.password) {
+      setError('Please fill in all fields');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const result = await authAPI.login({
         email: formData.email,
-        password: formData.password,
+        password: formData.password
       });
 
-      if (error) throw error;
-
-      alert('Login successful!');
-      // Redirect to dashboard or home page
-      window.location.href = '/';
-      
+      if (result.success) {
+        alert('Login successful! Welcome back!');
+        window.location.href = '/dashboard';
+      } else {
+        setError(result.error);
+      }
     } catch (error) {
-      setError(error.message);
+      setError('Login failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -56,7 +63,7 @@ const Login = () => {
       {/* Animated Background */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-black"></div>
-        <div 
+        <div
           className="absolute inset-0 opacity-30"
           style={{
             backgroundImage: `radial-gradient(circle at 25% 25%, #8b5cf6 0%, transparent 50%), 
@@ -64,21 +71,6 @@ const Login = () => {
             transform: `translateY(${scrollY * 0.5}px)`
           }}
         ></div>
-        {/* Floating particles */}
-        <div className="absolute inset-0">
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 bg-blue-500/30 rounded-full animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 3}s`
-              }}
-            ></div>
-          ))}
-        </div>
       </div>
 
       <div className="relative z-10">
@@ -108,6 +100,7 @@ const Login = () => {
                     {error}
                   </div>
                 )}
+
                 {/* Email */}
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">Email</label>
@@ -147,13 +140,6 @@ const Login = () => {
                       {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                   </div>
-                </div>
-
-                {/* Forgot Password */}
-                <div className="text-right">
-                  <a href="/forgot-password" className="text-sm text-purple-400 hover:text-purple-300 transition-colors">
-                    Forgot password?
-                  </a>
                 </div>
 
                 {/* Submit Button */}

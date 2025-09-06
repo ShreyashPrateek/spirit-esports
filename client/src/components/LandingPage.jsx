@@ -35,41 +35,6 @@ export default function SpiritEsportsLanding() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // const tournaments = [
-  //   { 
-  //     name: "BGMI Championship", 
-  //     prize: "₹5,00,000", 
-  //     image: "🏆",
-  //     date: "March 15, 2025",
-  //     teams: "128 Teams",
-  //     status: "Registration Open"
-  //   },
-  //   { 
-  //     name: "Squad Showdown", 
-  //     prize: "₹2,00,000", 
-  //     image: "🎯",
-  //     date: "March 25, 2025", 
-  //     teams: "64 Teams",
-  //     status: "Coming Soon"
-  //   },
-  //   { 
-  //     name: "Solo Masters", 
-  //     prize: "₹1,00,000", 
-  //     image: "👑",
-  //     date: "April 5, 2025",
-  //     teams: "200 Players", 
-  //     status: "Registration Open"
-  //   },
-  //   { 
-  //     name: "Weekly Clash", 
-  //     prize: "₹50,000", 
-  //     image: "⚡",
-  //     date: "Every Sunday",
-  //     teams: "32 Teams",
-  //     status: "Ongoing"
-  //   }
-  // ];
-
   const features = [
     {
       icon: <Trophy className="w-8 h-8" />,
@@ -339,7 +304,7 @@ export default function SpiritEsportsLanding() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                Why Choose <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Spirit BGMI</span>
+                Why Choose <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Spirit Esports</span>
               </h2>
               <p className="text-xl text-gray-300">India's premier BGMI tournament platform</p>
             </div>
