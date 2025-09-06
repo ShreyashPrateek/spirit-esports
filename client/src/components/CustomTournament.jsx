@@ -1,17 +1,104 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Trophy, Users,  ChevronDown, ArrowRight, Clock, Target, Crown, Gamepad2, Award, Settings } from 'lucide-react';
+import { Trophy, Users, ChevronDown, ArrowRight, Clock, Target, Crown, Gamepad2, Award, Settings, X, Calendar, DollarSign, User, Upload } from 'lucide-react';
+import { supabase } from '../supabaseClient';
 
 export default function ExcitingCustomTournaments() {
   const [isMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    startDate: '',
+    prizePool: '',
+    type: 'Squad',
+    details: ''
+  });
+
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  const checkUser = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    console.log('Current user:', user); // Debug
+    if (user) {
+      setUser(user);
+      // Check if user is authorized to create tournaments
+      const { data } = await supabase
+        .from('authorized_users')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+      console.log('Authorization data:', data); // Debug
+      setIsAuthorized(!!data);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleCreateTournament = async (e) => {
+    e.preventDefault();
+    if (!user || !isAuthorized) {
+      alert('You are not authorized to create tournaments');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // Set default image based on tournament type
+      const defaultImages = {
+        'Squad': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400',
+        'Duo': 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400', 
+        'Solo': 'https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=400'
+      };
+      const imageUrl = defaultImages[formData.type];
+
+      const insertData = {
+        name: formData.name,
+        organized_by: user.user_metadata?.full_name || user.email,
+        start_date: formData.startDate,
+        prize_pool: parseInt(formData.prizePool),
+        type: formData.type,
+        details: formData.details,
+        image_url: imageUrl,
+        creator_id: user.id
+      };
+      
+      console.log('Inserting data:', insertData);
+      
+      const { error } = await supabase
+        .from('custom_tournaments')
+        .insert(insertData);
+
+      if (error) throw error;
+      
+      alert('Tournament created successfully!');
+      setShowCreateForm(false);
+      setFormData({ name: '', startDate: '', prizePool: '', type: 'Squad', details: '' });
+    } catch (error) {
+      alert('Error creating tournament: ' + error.message);
+    } finally {
+      setLoading(false);
+
+    }
+  };
 
   const tournamentFormats = [
     {
@@ -51,8 +138,6 @@ export default function ExcitingCustomTournaments() {
       teams: "Any Size"
     }
   ];
-
-
 
   const customTournamentFeatures = [
     {
@@ -160,13 +245,29 @@ export default function ExcitingCustomTournaments() {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
+                  <button 
+                    onClick={() => window.location.href = '/tournaments'}
+                    className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105"
+                  >
                     <span className="flex items-center justify-center">
                       Join Next Tournament
                       <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </button>
-                  <button className="group px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all">
+                  <button 
+                    onClick={() => {
+                      if (!user) {
+                        alert('Please login to create tournaments');
+                        return;
+                      }
+                      if (!isAuthorized) {
+                        alert('You are not authorized to create tournaments. Contact admin.');
+                        return;
+                      }
+                      setShowCreateForm(true);
+                    }}
+                    className="group px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all"
+                  >
                     <span className="flex items-center justify-center">
                       <Settings className="mr-2 w-5 h-5" />
                       Create Custom Event
@@ -346,7 +447,20 @@ export default function ExcitingCustomTournaments() {
             </div>
 
             <div className="text-center mt-12">
-              <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
+              <button 
+                onClick={() => {
+                  if (!user) {
+                    alert('Please login to create tournaments');
+                    return;
+                  }
+                  if (!isAuthorized) {
+                    alert('You are not authorized to create tournaments. Contact admin.');
+                    return;
+                  }
+                  setShowCreateForm(true);
+                }}
+                className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105"
+              >
                 Create Custom Tournament
               </button>
             </div>
@@ -363,20 +477,155 @@ export default function ExcitingCustomTournaments() {
               From casual daily scrims to intense championship battles - find your perfect tournament format
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
+              <button 
+                onClick={() => window.location.href = '/tournaments'}
+                className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105"
+              >
                 Browse All Tournaments
               </button>
-              <button className="px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all">
+              <button 
+                onClick={() => {
+                  if (!user) {
+                    alert('Please login to create tournaments');
+                    return;
+                  }
+                  if (!isAuthorized) {
+                    alert('You are not authorized to create tournaments. Contact admin.');
+                    return;
+                  }
+                  setShowCreateForm(true);
+                }}
+                className="px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all"
+              >
                 Schedule Custom Event
               </button>
             </div>
           </div>
         </section>
 
+        {/* Tournament Creation Modal */}
+        {showCreateForm && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
+            <div className="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 max-w-md w-full border border-purple-500/20 my-8">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                  Create Tournament
+                </h3>
+                <button 
+                  onClick={() => setShowCreateForm(false)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              
+              <form onSubmit={handleCreateTournament} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Tournament Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                    placeholder="Enter tournament name"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2">Organized By</label>
+                  <div className="flex items-center px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg">
+                    <User className="w-5 h-5 mr-2 text-purple-400" />
+                    <span className="text-gray-300">{user?.user_metadata?.full_name || user?.email}</span>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2">Start Date</label>
+                  <div className="relative">
+                    <Calendar className="absolute left-3 top-3 w-5 h-5 text-purple-400" />
+                    <input
+                      type="datetime-local"
+                      name="startDate"
+                      value={formData.startDate}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full pl-12 pr-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2">Prize Pool (₹)</label>
+                  <div className="relative">
+                    <DollarSign className="absolute left-3 top-3 w-5 h-5 text-purple-400" />
+                    <input
+                      type="number"
+                      name="prizePool"
+                      value={formData.prizePool}
+                      onChange={handleInputChange}
+                      required
+                      min="0"
+                      className="w-full pl-12 pr-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                      placeholder="Enter prize amount"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2">Tournament Type</label>
+                  <select
+                    name="type"
+                    value={formData.type}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                  >
+                    <option value="Squad">Squad (4 Players)</option>
+                    <option value="Duo">Duo (2 Players)</option>
+                    <option value="Solo">Solo (1 Player)</option>
+                  </select>
+                </div>
+                
+
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2">Tournament Details</label>
+                  <textarea
+                    name="details"
+                    value={formData.details}
+                    onChange={handleInputChange}
+                    rows="3"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none resize-none"
+                    placeholder="Enter tournament rules, format, and other details..."
+                  />
+                </div>
+                
+                <div className="flex gap-4 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowCreateForm(false)}
+                    className="flex-1 px-4 py-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="flex-1 px-4 py-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all disabled:opacity-50"
+                  >
+                    {loading ? 'Creating...' : 'Create Tournament'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
         {/* Footer */}
-          <nav>
-            <Footer />
-          </nav>
+        <nav>
+          <Footer />
+        </nav>
       </div>
     </div>
   );

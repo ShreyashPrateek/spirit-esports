@@ -24,7 +24,7 @@ const TournamentPage = () => {
       console.log('Fetching tournaments from Supabase...');
       try {
         const { data, error } = await supabase
-          .from('tournaments')
+          .from('custom_tournaments')
           .select('*');
 
         console.log('Supabase response:', { data, error });

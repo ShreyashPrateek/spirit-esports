@@ -18,9 +18,9 @@ export default function SpiritEsportsLanding() {
         // Fetch tournaments from Supabase
     const fetchTournaments = async () => {
       const { data, error } = await supabase
-        .from('tournaments')
+        .from('custom_tournaments')
         .select('*')
-        .order('date', { ascending: false })
+        .order('start_date', { ascending: false })
         .limit(4); // Let's fetch 4 tournaments for now
 
       if (error) {
@@ -308,11 +308,11 @@ export default function SpiritEsportsLanding() {
                   />
                   <div className="p-5">
                     <h3 className="text-lg font-bold text-white mb-2 truncate">{tournament.name}</h3>
-                    <p className="text-sm text-gray-400 mb-4">{new Date(tournament.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
+                    <p className="text-sm text-gray-400 mb-4">{new Date(tournament.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
                     <div className="flex justify-between items-center mb-4">
                       <span className="text-gray-400 text-sm">Prize Pool</span>
                       <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent font-bold">
-                        ₹{tournament.prizePool.toLocaleString()}
+                        ₹{tournament.prize_pool?.toLocaleString() || '0'}
                       </span>
                     </div>
                     <button className="w-full px-4 py-2 bg-purple-600/50 border border-purple-500 rounded-lg text-sm font-semibold hover:bg-purple-600 transition-colors">
