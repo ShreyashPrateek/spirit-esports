@@ -1,17 +1,60 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Swords, Menu, X, ChevronDown } from 'lucide-react';
+import { Swords, Menu, X, ChevronDown, User, LogOut } from 'lucide-react';
+import { supabase } from '../supabaseClient';
 
 export default function Header() {
+  const [user, setUser] = useState(null);
+  const [userName, setUserName] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isOfferDropdownOpen, setIsOfferDropdownOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
+  const fetchUserProfile = async (userId) => {
+    const { data, error } = await supabase
+      .from('profile')
+      .select('name')
+      .eq('id', userId)
+      .single();
+    
+    if (data && !error) {
+      setUserName(data.name);
+    }
+  };
+
   useEffect(() => {
+    // Check current user
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+      if (user) {
+        fetchUserProfile(user.id);
+      }
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchUserProfile(session.user.id);
+      } else {
+        setUserName('');
+      }
+    });
+
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      subscription.unsubscribe();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setIsDropdownOpen(false);
+  };
 
   return (
     <nav className={`fixed top-0 w-full backdrop-blur-md border-b border-purple-500/20 z-50 transition-all ${
@@ -39,20 +82,20 @@ export default function Header() {
               <div className="relative">
                 <button 
                   className="hover:text-purple-400 transition-colors flex items-center space-x-1"
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  onMouseEnter={() => setIsDropdownOpen(true)}
-                  onMouseLeave={() => setIsDropdownOpen(false)}
+                  onClick={() => setIsOfferDropdownOpen(!isOfferDropdownOpen)}
+                  onMouseEnter={() => setIsOfferDropdownOpen(true)}
+                  onMouseLeave={() => setIsOfferDropdownOpen(false)}
                 >
                   <span>What we offer</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isOfferDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 
                 <div 
                   className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-56 bg-black/95 backdrop-blur-md border border-purple-500/20 rounded-lg py-2 shadow-xl transition-all ${
-                    isDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+                    isOfferDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
                   }`}
-                  onMouseEnter={() => setIsDropdownOpen(true)}
-                  onMouseLeave={() => setIsDropdownOpen(false)}
+                  onMouseEnter={() => setIsOfferDropdownOpen(true)}
+                  onMouseLeave={() => setIsOfferDropdownOpen(false)}
                 >
                   <Link to="/ProGaming" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
                     Pro-Grade Gaming Experience
@@ -72,12 +115,50 @@ export default function Header() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/login" className="px-4 py-2 text-purple-400 border border-purple-400 rounded-lg hover:bg-purple-400 hover:text-black transition-all">
-              Login
-            </Link>
-            <Link to="/signup" className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all">
-              Join Now
-            </Link>
+            {user ? (
+              <div className="relative">
+                <button
+                  className="flex items-center space-x-3 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30 rounded-lg hover:from-purple-500/30 hover:to-blue-500/30 transition-all"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                    <User className="w-4 h-4" />
+                  </div>
+                  <span className="text-white font-medium">{userName || user.email.split('@')[0]}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {isDropdownOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-48 bg-black/95 backdrop-blur-md border border-purple-500/20 rounded-lg py-2 shadow-xl z-50">
+                    <Link
+                      to="/profile"
+                      onClick={() => setIsDropdownOpen(false)}
+                      className="w-full flex items-center space-x-3 px-4 py-3 text-purple-400 hover:bg-purple-400/10 transition-colors"
+                    >
+                      <User className="w-4 h-4" />
+                      <span>View Profile</span>
+                    </Link>
+                    
+                    <button
+                      onClick={handleSignOut}
+                      className="w-full flex items-center space-x-3 px-4 py-3 text-red-400 hover:bg-red-400/10 transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Logout</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <Link to="/login" className="px-4 py-2 text-purple-400 border border-purple-400 rounded-lg hover:bg-purple-400 hover:text-black transition-all">
+                  Login
+                </Link>
+                <Link to="/signup" className="px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all">
+                  Join Now
+                </Link>
+              </>
+            )}
           </div>
 
           
@@ -112,8 +193,19 @@ export default function Header() {
             <Link to="/tournament" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-purple-400">Tournament</Link>
             <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="block py-2 hover:text-purple-400">Contact</Link>
             <div className="pt-4 space-y-3">
-              <Link to="/login" onClick={() => setIsMenuOpen(false)} className="block w-full px-4 py-2 text-purple-400 border border-purple-400 rounded-lg text-center">Login</Link>
-              <Link to="/signup" onClick={() => setIsMenuOpen(false)} className="block w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-center">Join Now</Link>
+              {user ? (
+                <button
+                  onClick={handleSignOut}
+                  className="block w-full px-4 py-2 text-red-400 border border-red-400 rounded-lg text-center"
+                >
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <Link to="/login" onClick={() => setIsMenuOpen(false)} className="block w-full px-4 py-2 text-purple-400 border border-purple-400 rounded-lg text-center">Login</Link>
+                  <Link to="/signup" onClick={() => setIsMenuOpen(false)} className="block w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-center">Join Now</Link>
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -22,17 +22,25 @@ const TournamentPage = () => {
 
     const fetchTournaments = async () => {
       console.log('Fetching tournaments from Supabase...');
-      const { data, error } = await supabase
-        .from('tournaments')
-        .select('*');
+      try {
+        const { data, error } = await supabase
+          .from('tournaments')
+          .select('*');
 
-      console.log('Supabase response:', { data, error });
-      
-      if (error) {
-        console.error('Error fetching tournaments:', error);
-      } else {
-        console.log('Tournaments fetched:', data);
-        setTournaments(data || []);
+        console.log('Supabase response:', { data, error });
+        
+        if (error) {
+          console.error('Error fetching tournaments:', error);
+          // Show user-friendly error
+          alert(`Database Error: ${error.message}`);
+        } else {
+          console.log('Tournaments fetched:', data);
+          console.log('Number of tournaments:', data?.length || 0);
+          setTournaments(data || []);
+        }
+      } catch (err) {
+        console.error('Network error:', err);
+        alert('Failed to connect to database. Please check your connection.');
       }
     };
 

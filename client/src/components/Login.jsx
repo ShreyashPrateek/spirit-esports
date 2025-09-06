@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Lock, Eye, EyeOff, GamepadIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { supabase } from '../supabaseClient';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -32,23 +34,18 @@ const Login = () => {
     setLoading(true);
     setError('');
 
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password,
-      });
+    const { error } = await supabase.auth.signInWithPassword({
+      email: formData.email,
+      password: formData.password,
+    });
 
-      if (error) throw error;
-
-      alert('Login successful!');
-      // Redirect to dashboard or home page
-      window.location.href = '/';
-      
-    } catch (error) {
+    if (error) {
       setError(error.message);
-    } finally {
-      setLoading(false);
+    } else {
+      navigate('/');
     }
+    
+    setLoading(false);
   };
 
   return (

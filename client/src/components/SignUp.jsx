@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { User, Mail, Lock, Upload, Eye, EyeOff, GamepadIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { supabase } from '../supabaseClient';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -146,17 +148,7 @@ const SignUp = () => {
       }
 
       alert('Account created successfully! Please check your email to verify your account.');
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        phone: '',
-        profilePicture: null
-      });
-      setPreviewImage(null);
+      navigate('/login');
       
     } catch (error) {
       setError(error.message);
