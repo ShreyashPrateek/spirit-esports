@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Trophy, Users, ChevronDown, ArrowRight, Clock, Target, Crown, Gamepad2, Award, Settings, X, Calendar, DollarSign, User, Upload } from 'lucide-react';
+import { Trophy, Users, ChevronDown, ArrowRight, Clock, Target, Crown, Gamepad2, Award, Settings, X, Calendar, DollarSign, User } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 
 export default function ExcitingCustomTournaments() {
