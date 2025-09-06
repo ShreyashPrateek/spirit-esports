@@ -293,35 +293,6 @@ export default function SpiritEsportsLanding() {
                 Your next challenge awaits. Register now and prove your skills.
               </p>
             </div>
-
-            {/* Tournament Cards Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {tournaments.map((tournament) => (
-                <div 
-                  key={tournament.id} 
-                  className="bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl overflow-hidden border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2"
-                >
-                  <img 
-                    className="w-full h-40 object-cover" 
-                    src={tournament.image || '/images/spiritOpen.jpg'} // Use a fallback image
-                    alt={tournament.name} 
-                  />
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-white mb-2 truncate">{tournament.name}</h3>
-                    <p className="text-sm text-gray-400 mb-4">{new Date(tournament.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="text-gray-400 text-sm">Prize Pool</span>
-                      <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent font-bold">
-                        ₹{tournament.prize_pool?.toLocaleString() || '0'}
-                      </span>
-                    </div>
-                    <button className="w-full px-4 py-2 bg-purple-600/50 border border-purple-500 rounded-lg text-sm font-semibold hover:bg-purple-600 transition-colors">
-                      View Details
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
             
             <div className="text-center mt-12">
               <a href="/tournament" className="group inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700">
