@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { User, Mail, Lock, Upload, Eye, EyeOff, GamepadIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import Header from './Header';
 import { supabase } from '../supabaseClient';
 
@@ -19,15 +20,12 @@ const SignUp = () => {
   const [scrollY, setScrollY] = useState(0);
   const [previewImage, setPreviewImage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -55,17 +53,16 @@ const SignUp = () => {
     if (file) {
       // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        setError('File size must be less than 5MB');
+        toast.error('File size must be less than 5MB');
         return;
       }
 
       // Validate file type
       if (!file.type.startsWith('image/')) {
-        setError('Please select a valid image file');
+        toast.error('Please select a valid image file');
         return;
       }
 
-      setError(''); // Clear any previous errors
       setFormData(prev => ({
         ...prev,
         profilePicture: file
@@ -74,20 +71,24 @@ const SignUp = () => {
       const reader = new FileReader();
       reader.onload = (e) => setPreviewImage(e.target.result);
       reader.readAsDataURL(file);
+      
+      toast.success('Profile picture selected!');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
 
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      toast.error('Passwords do not match');
       setLoading(false);
       return;
     }
+
+    // Show loading toast
+    const loadingToast = toast.loading('Creating your account...');
 
     try {
       // Sign up user with Supabase Auth
@@ -107,6 +108,9 @@ const SignUp = () => {
       let profilePictureUrl = null;
       if (formData.profilePicture) {
         try {
+          // Show upload progress
+          toast.loading('Uploading profile picture...', { id: loadingToast });
+
           // Ensure bucket exists
           const { error: bucketError } = await supabase.storage.createBucket('profile-pictures', { public: true });
           if (bucketError && !bucketError.message.includes('already exists')) {
@@ -122,7 +126,7 @@ const SignUp = () => {
 
           if (uploadError) {
             console.error('Upload error:', uploadError);
-            // Continue without profile picture instead of failing
+            toast.error('Profile picture upload failed, but account created successfully!');
             profilePictureUrl = null;
           } else {
             const { data: { publicUrl } } = supabase.storage
@@ -132,6 +136,7 @@ const SignUp = () => {
           }
         } catch (err) {
           console.error('Profile picture upload failed:', err);
+          toast.error('Profile picture upload failed, but account created successfully!');
           profilePictureUrl = null;
         }
       }
@@ -141,7 +146,7 @@ const SignUp = () => {
         .from('profile')
         .insert({
           id: authData.user.id,
-          name : formData.name,
+          name: formData.name,
           email: formData.email,
           phone: formData.phone,
           profile_picture: profilePictureUrl,
@@ -150,13 +155,24 @@ const SignUp = () => {
 
       if (profileError) {
         console.error('Profile creation error:', profileError);
+        toast.error('Profile creation failed, but account created successfully!');
       }
 
-      alert('Account created successfully! Please check your email to verify your account.');
-      navigate('/login');
+      // Dismiss loading toast and show success
+      toast.dismiss(loadingToast);
+      toast.success('Account created successfully! Please check your email to verify your account.', {
+        duration: 6000,
+        icon: '🎉'
+      });
+      
+      // Navigate after a short delay to let user see the success message
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
       
     } catch (error) {
-      setError(error.message);
+      toast.dismiss(loadingToast);
+      toast.error(error.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -213,12 +229,6 @@ const SignUp = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Error Message */}
-                {error && (
-                  <div className="bg-red-500/20 border border-red-500/30 text-red-300 px-4 py-3 rounded-lg text-sm">
-                    {error}
-                  </div>
-                )}
                 {/* Profile Picture Upload */}
                 <div className="text-center">
                   <div className="relative inline-block">
