@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Calendar, Trophy, Clock, Target, Filter, ChevronLeft, ChevronRight, Play, GamepadIcon, ArrowRight, X, Users, MapPin, Award, Info } from 'lucide-react';
+import { Calendar, Trophy, Clock, Target, Filter, ChevronLeft, ChevronRight, Play, GamepadIcon, ArrowRight, X, Users, Award, Info } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
 import { supabase } from '../supabaseClient';
