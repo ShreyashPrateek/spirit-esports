@@ -84,7 +84,7 @@ const RegistrationModal = ({ tournament, isOpen, onClose }) => {
         status: 'registered'
       };
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('custom_tournament_registrations')
         .insert([registrationData]);
 
@@ -502,7 +502,6 @@ const TournamentPage = () => {
         
         if (error) {
           console.error('Error fetching tournaments:', error);
-          // Show user-friendly error
           alert(`Database Error: ${error.message}`);
         } else {
           console.log('Tournaments fetched:', data);
