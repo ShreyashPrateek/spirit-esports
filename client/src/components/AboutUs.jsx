@@ -45,7 +45,7 @@ export default function AboutUs() {
   const team = [
     {
       name: "Shreyash Prateek",
-      role: "Founder",
+      role: "Co-Founder",
       image: "👨‍💼",
       description: "Former pro gamer with 6+ years in esports industry"
     },
