@@ -89,16 +89,25 @@ const RegistrationModal = ({ tournament, isOpen, onClose }) => {
         .insert([registrationData]);
 
       if (error) {
-        throw error;
+        if (error.message.includes("Tournament is full")) {
+          toast.error("⚠️ Tournament is already full!");
+        } else if (error.message.includes("unique_team_per_tournament")) {
+          toast.error("⚠️ This team is already registered for the tournament.");
+        } else if (error.message.includes("unique_whatsapp_per_tournament")) {
+          toast.error("⚠️ This WhatsApp number is already registered for the tournament.");
+        } else {
+          toast.error("❌ Registration failed: " + error.message);
+        }
+        return;
       }
 
-      alert('Registration successful! You will receive confirmation on WhatsApp.');
+      toast.success('Registration successful!');
       resetForm();
       onClose();
       
     } catch (error) {
       console.error('Registration error:', error);
-      alert(`Registration failed: ${error.message}`);
+      toast.error(`Registration failed: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -502,7 +511,7 @@ const TournamentPage = () => {
         
         if (error) {
           console.error('Error fetching tournaments:', error);
-          alert(`Database Error: ${error.message}`);
+          toast.error(`Database Error: ${error.message}`);
         } else {
           console.log('Tournaments fetched:', data);
           console.log('Number of tournaments:', data?.length || 0);
@@ -510,7 +519,7 @@ const TournamentPage = () => {
         }
       } catch (err) {
         console.error('Network error:', err);
-        alert('Failed to connect to database. Please check your connection.');
+        toast.error('Failed to connect to database. Please check your connection.');
       }
     };
 

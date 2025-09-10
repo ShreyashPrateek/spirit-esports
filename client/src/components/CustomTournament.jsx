@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Trophy, Users, ChevronDown, ArrowRight, Clock, Target, Crown, Gamepad2, Award, Settings, X, Calendar, DollarSign, User } from 'lucide-react';
+import { Trophy, Users, ChevronDown, ArrowRight, Clock, Target, Crown, Gamepad2, Award, Settings, X, Calendar, DollarSign, User, Banknote } from 'lucide-react';
 import { supabase } from '../supabaseClient';
+import { toast } from 'react-hot-toast';
 
 export default function ExcitingCustomTournaments() {
   const [isMenuOpen] = useState(false);
@@ -56,7 +57,7 @@ export default function ExcitingCustomTournaments() {
   const handleCreateTournament = async (e) => {
     e.preventDefault();
     if (!user || !isAuthorized) {
-      alert('You are not authorized to create tournaments');
+      toast.error('You are not authorized to create tournaments');
       return;
     }
 
@@ -75,10 +76,15 @@ export default function ExcitingCustomTournaments() {
         organized_by: user.user_metadata?.full_name || user.email,
         start_date: formData.startDate,
         prize_pool: parseInt(formData.prizePool),
+        entryFee: formData.entryFee,
         type: formData.type,
         details: formData.details,
         image_url: imageUrl,
-        creator_id: user.id
+        creator_id: user.id,
+          participants: {
+            max: parseInt(formData.maxParticipants), // take max from form input
+            current: 0                               // always start at 0
+  }
       };
       
       console.log('Inserting data:', insertData);
@@ -89,11 +95,11 @@ export default function ExcitingCustomTournaments() {
 
       if (error) throw error;
       
-      alert('Tournament created successfully!');
+      toast.success('Tournament created successfully!');
       setShowCreateForm(false);
       setFormData({ name: '', startDate: '', prizePool: '', type: 'Squad', details: '' });
     } catch (error) {
-      alert('Error creating tournament: ' + error.message);
+      toast.error('Error creating tournament: ' + error.message);
     } finally {
       setLoading(false);
 
@@ -257,11 +263,11 @@ export default function ExcitingCustomTournaments() {
                   <button 
                     onClick={() => {
                       if (!user) {
-                        alert('Please login to create tournaments');
+                        toast.error('Please login to create tournaments');
                         return;
                       }
                       if (!isAuthorized) {
-                        alert('You are not authorized to create tournaments. Contact admin.');
+                        toast.error('You are not authorized to create tournaments. Contact admin.');
                         return;
                       }
                       setShowCreateForm(true);
@@ -450,11 +456,11 @@ export default function ExcitingCustomTournaments() {
               <button 
                 onClick={() => {
                   if (!user) {
-                    alert('Please login to create tournaments');
+                    toast.error('Please login to create tournaments');
                     return;
                   }
                   if (!isAuthorized) {
-                    alert('You are not authorized to create tournaments. Contact admin.');
+                    toast.error('You are not authorized to create tournaments. Contact admin.');
                     return;
                   }
                   setShowCreateForm(true);
@@ -486,11 +492,11 @@ export default function ExcitingCustomTournaments() {
               <button 
                 onClick={() => {
                   if (!user) {
-                    alert('Please login to create tournaments');
+                    toast.error('Please login to create tournaments');
                     return;
                   }
                   if (!isAuthorized) {
-                    alert('You are not authorized to create tournaments. Contact admin.');
+                    toast.error('You are not authorized to create tournaments. Contact admin.');
                     return;
                   }
                   setShowCreateForm(true);
@@ -519,7 +525,9 @@ export default function ExcitingCustomTournaments() {
                 </button>
               </div>
               
+              {/* Form to handle tournament creation data */}
               <form onSubmit={handleCreateTournament} className="space-y-4">
+                {/* Tournament Name */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Tournament Name</label>
                   <input
@@ -533,6 +541,7 @@ export default function ExcitingCustomTournaments() {
                   />
                 </div>
                 
+                {/* Organized By persons name or email  */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Organized By</label>
                   <div className="flex items-center px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg">
@@ -541,6 +550,7 @@ export default function ExcitingCustomTournaments() {
                   </div>
                 </div>
                 
+                {/* Start Date */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Start Date</label>
                   <div className="relative">
@@ -556,10 +566,11 @@ export default function ExcitingCustomTournaments() {
                   </div>
                 </div>
                 
+                {/* Prize Pool (₹) */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Prize Pool (₹)</label>
                   <div className="relative">
-                    <DollarSign className="absolute left-3 top-3 w-5 h-5 text-purple-400" />
+                    <Banknote className="absolute left-3 top-3 w-5 h-5 text-purple-400" />
                     <input
                       type="number"
                       name="prizePool"
@@ -572,7 +583,44 @@ export default function ExcitingCustomTournaments() {
                     />
                   </div>
                 </div>
+
+                {/* Entry Fee */}
+                <div>
+                  <label className="block text-sm font-medium mb-2">Entry Fee</label>
+                  <div className="relative">
+                    <Banknote className="absolute left-3 top-3 w-5 h-5 text-purple-400" />
+                    <input
+                      type="text"
+                      name="entryFee"
+                      value={formData.entryFee}
+                      onChange={handleInputChange}
+                      required
+                      min="0"
+                      className="w-full pl-12 pr-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                      placeholder="Entry Fee (Type 0 for Free Entry)"
+                    />
+                  </div>
+                </div>
+
+                {/* Max Participants */}
+                <div>
+                  <label className="block text-sm font-medium mb-2">Max Participants</label>
+                  <div className="relative">
+                    <Users className="absolute left-3 top-3 w-5 h-5 text-purple-400" />
+                    <input
+                      type="number"
+                      name="maxParticipants"
+                      value={formData.maxParticipants}
+                      onChange={handleInputChange}
+                      required
+                      min="1"
+                      className="w-full pl-12 pr-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                      placeholder="Enter max participants (e.g., 100)"
+                    />
+                  </div>
+                </div>
                 
+                {/* Tournament Type */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Tournament Type</label>
                   <select
@@ -586,9 +634,8 @@ export default function ExcitingCustomTournaments() {
                     <option value="Solo">Solo (1 Player)</option>
                   </select>
                 </div>
-                
-
-                
+    
+                {/* Tournament Details */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Tournament Details</label>
                   <textarea
