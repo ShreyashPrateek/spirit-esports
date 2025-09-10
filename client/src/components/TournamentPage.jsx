@@ -627,23 +627,23 @@ const handleRegisterClick = async (tournament) => {
 
   if (!user) {
     toast.custom((t) => (
-      <div className="bg-gray-900 text-white px-4 py-3 rounded-lg shadow-lg flex flex-col gap-2">
+      <div className="bg-red-700 text-white px-4 py-3 rounded-lg shadow-lg flex flex-col gap-2">
         <span>⚠️ You must be logged in to register.</span>
-        <div className="flex gap-3 justify-end">
+        <div className="flex gap-3 justify-center mt-2">
           <button
             onClick={() => {
               toast.dismiss(t.id); // close toast
               window.location.href = "/login"; // redirect
             }}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm"
+            className="bg-blue-600 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm"
           >
-            Goto Login
+            Login
           </button>
           <button
             onClick={() => toast.dismiss(t.id)} // just close toast
             className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded-md text-sm"
           >
-            Stay Here
+            Stay
           </button>
         </div>
       </div>
