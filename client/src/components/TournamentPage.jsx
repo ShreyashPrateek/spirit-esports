@@ -626,28 +626,7 @@ const handleRegisterClick = async (tournament) => {
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
-    toast.custom((t) => (
-      <div className="bg-red-700 text-white px-4 py-3 rounded-lg shadow-lg flex flex-col gap-2">
-        <span>⚠️ You must be logged in to register.</span>
-        <div className="flex gap-3 justify-center mt-2">
-          <button
-            onClick={() => {
-              toast.dismiss(t.id); // close toast
-              window.location.href = "/login"; // redirect
-            }}
-            className="bg-blue-600 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm"
-          >
-            Login
-          </button>
-          <button
-            onClick={() => toast.dismiss(t.id)} // just close toast
-            className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded-md text-sm"
-          >
-            Stay
-          </button>
-        </div>
-      </div>
-    ), { duration: 5000 }); // auto-dismiss in 5s if no action
+      toast.error('Please login to register for tournaments');
     return;
   }
 
