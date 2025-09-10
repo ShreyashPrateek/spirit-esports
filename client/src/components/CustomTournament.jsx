@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Trophy, Users, ChevronDown, ArrowRight, Clock, Target, Crown, Gamepad2, Award, Settings, X, Calendar, DollarSign, User, Banknote } from 'lucide-react';
+import { Trophy, Users, ChevronDown, ArrowRight, Clock, Target, Crown, Gamepad2, Award, Settings, X, Calendar, User, Banknote } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import { toast } from 'react-hot-toast';
 
