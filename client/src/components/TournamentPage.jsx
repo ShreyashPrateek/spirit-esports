@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Calendar, Trophy, Clock, Target, Filter, ChevronLeft, ChevronRight, Play, GamepadIcon, ArrowRight, X, Users, Award, Info, User, Phone, Crown, Medal, Zap, RefreshCw } from 'lucide-react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import { Calendar, Trophy, Clock, Target, Filter, ChevronLeft, ChevronRight, Play, GamepadIcon, ArrowRight, X, Users, Award, Info, User, Phone, Crown, Zap, RefreshCw } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
 import { supabase } from '../supabaseClient';
@@ -11,13 +11,7 @@ const LeaderboardModal = ({ tournament, isOpen, onClose }) => {
   // const currentRound = 1;
   // const totalRounds = 6;
 
-  useEffect(() => {
-    if (isOpen && tournament) {
-      fetchLeaderboardData();
-    }
-  }, [isOpen, tournament]);
-
-  const fetchLeaderboardData = async () => {
+  const fetchLeaderboardData = useCallback(async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
@@ -38,7 +32,13 @@ const LeaderboardModal = ({ tournament, isOpen, onClose }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [tournament]);
+
+  useEffect(() => {
+    if (isOpen && tournament) {
+      fetchLeaderboardData();
+    }
+  }, [isOpen, tournament, fetchLeaderboardData]);
 
   const getRankIcon = (rank) => {
     return <span className="w-5 h-5 flex items-center justify-center text-sm font-bold text-white">{rank}</span>;
@@ -74,7 +74,7 @@ const LeaderboardModal = ({ tournament, isOpen, onClose }) => {
         <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-white mb-2">Live Leaderboard</h2>
+              <h2 className="text-2xl font-bold text-white mb-2">Leaderboard</h2>
               <p className="text-purple-100">{tournament.name}</p>
             </div>
             {/* <div className="text-right">
