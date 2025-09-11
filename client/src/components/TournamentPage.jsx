@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { Calendar, Trophy, Clock, Target, Filter, ChevronLeft, ChevronRight, Play, GamepadIcon, ArrowRight, X, Users, Award, Info, User, Phone, Crown, Zap, RefreshCw } from 'lucide-react';
+import { Calendar, Trophy, Clock, Target, Filter, ChevronLeft, ChevronRight, Play, GamepadIcon, ArrowRight, X, Users, Award, Info, User, Phone, Crown, Zap, RefreshCw, Medal } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
 import { supabase } from '../supabaseClient';
@@ -8,8 +8,6 @@ import toast from "react-hot-toast";
 const LeaderboardModal = ({ tournament, isOpen, onClose }) => {
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const currentRound = 1;
-  // const totalRounds = 6;
 
   const fetchLeaderboardData = useCallback(async () => {
     setLoading(true);
@@ -77,10 +75,6 @@ const LeaderboardModal = ({ tournament, isOpen, onClose }) => {
               <h2 className="text-2xl font-bold text-white mb-2">Leaderboard</h2>
               <p className="text-purple-100">{tournament.name}</p>
             </div>
-            {/* <div className="text-right">
-              <div className="text-sm text-purple-200">Round</div>
-              <div className="text-2xl font-bold text-white">{currentRound}/{totalRounds}</div>
-            </div> */}
           </div>
         </div>
 
@@ -231,6 +225,16 @@ const LeaderboardModal = ({ tournament, isOpen, onClose }) => {
                 <Crown className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
                 <div className="text-lg font-bold text-white">1st Place</div>
                 <div className="text-yellow-400 font-medium">₹{Math.floor((tournament.prize_pool || 0) * 0.5).toLocaleString()}</div>
+              </div>
+              <div className="text-center p-4 bg-gradient-to-br from-yellow-500/10 to-yellow-600/10 rounded-lg border border-yellow-500/20">
+                <Medal className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
+                <div className="text-lg font-bold text-white">2nd Place</div>
+                <div className="text-yellow-400 font-medium">₹{Math.floor((tournament.prize_pool || 0) * 0.3).toLocaleString()}</div>
+              </div>
+              <div className="text-center p-4 bg-gradient-to-br from-yellow-500/10 to-yellow-600/10 rounded-lg border border-yellow-500/20">
+                <Zap className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
+                <div className="text-lg font-bold text-white">3rd Place</div>
+                <div className="text-yellow-400 font-medium">₹{Math.floor((tournament.prize_pool || 0) * 0.2).toLocaleString()}</div>
               </div>
             </div>
           </div>
