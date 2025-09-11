@@ -99,12 +99,12 @@ export default function ContactPage() {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Office Location",
-      details: "Bengaluru, Karnataka, India"
+      details: "Remote - India"
     },
     {
       icon: <Clock className="w-6 h-6" />,
       title: "Response Time",
-      details: "Within 24 hours"
+      details: "12 hours to 48 hours"
     },
     {
       icon: <Users className="w-6 h-6" />,
@@ -168,12 +168,12 @@ export default function ContactPage() {
             <div className="grid lg:grid-cols-2 gap-12 items-start">
               {/* Contact Form */}
               <div className="bg-gradient-to-br from-gray-900/50 to-black/50 rounded-2xl p-8 border border-purple-500/20 backdrop-blur-sm">
-                <div className="mb-8">
+                <div className="mb-8 text-center">
                   <h2 className="text-3xl font-bold mb-2">Send us a Message</h2>
                   <p className="text-gray-400">Fill out the form below and we'll get back to you within 24 hours.</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   {/* Name Field */}
                   <div>
                     <label className="block text-sm font-semibold text-purple-300 mb-2">
