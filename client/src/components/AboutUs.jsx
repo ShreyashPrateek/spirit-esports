@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Trophy, Users, Zap, Target, Shield, Star, ArrowRight, Play, GamepadIcon } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
+import { toast } from 'react-hot-toast';
 
 export default function AboutUs() {
   const [scrollY, setScrollY] = useState(0);
@@ -18,6 +19,10 @@ export default function AboutUs() {
     { number: "50+", label: "Tournaments Hosted", icon: <Target className="w-6 h-6" /> },
     { number: "99%", label: "Player Satisfaction", icon: <Star className="w-6 h-6" /> }
   ];
+
+  const comingSoonToast = () => {
+    toast.success('Coming Soon!');
+  };
 
   const values = [
     {
@@ -170,13 +175,17 @@ export default function AboutUs() {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
+                  <button 
+                    onClick={comingSoonToast}
+                    className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
                     <span className="flex items-center justify-center">
                       Join Our Community
                       <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </button>
-                  <button className="group px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all">
+                  <button 
+                    onClick={comingSoonToast}
+                    className="group px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all">
                     <span className="flex items-center justify-center">
                       <Play className="mr-2 w-5 h-5" />
                       Watch Our Story
@@ -337,7 +346,7 @@ export default function AboutUs() {
               Unlock your competitive gaming potential on India's most rewarding esports platform. Access high-stakes tournaments, professional networking opportunities, and the resources needed to transform your gaming passion into a lucrative career in India's booming esports industry.            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
-                Start Your Journey
+                <a href='/SignUp' >Start Your Journey</a>
               </button>
               <button className="px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all"
               onClick={() => window.location.href = '/contact'}>

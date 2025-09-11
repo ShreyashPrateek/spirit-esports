@@ -3,6 +3,7 @@ import Header from './Header';
 import { Play, Trophy, Users, Zap, ChevronDown, Star, ArrowRight } from 'lucide-react';
 import Footer from './Footer';
 import { supabase } from '../supabaseClient';
+import toast from "react-hot-toast";
 
 export default function SpiritEsportsLanding() {
   const [isMenuOpen] = useState(false);
@@ -87,6 +88,10 @@ export default function SpiritEsportsLanding() {
       description: "Real-time leaderboards and match statistics tracking"
     }
   ];
+
+  const comingSoonToast = () => {
+    toast.success('Coming Soon!');
+  };
 
   const stats = [
     { number: "25K+", label: "BGMI Players" },
@@ -177,7 +182,9 @@ export default function SpiritEsportsLanding() {
                       <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </button>
-                  <button className="group px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all">
+                  <button 
+                    onClick={comingSoonToast}
+                    className="group px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all">
                     <span className="flex items-center justify-center">
                       <Play className="mr-2 w-5 h-5" />
                       View Live Matches
@@ -294,30 +301,29 @@ export default function SpiritEsportsLanding() {
               </p>
             </div>
             
-            {/* Tournament Cards Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {tournaments.map((tournament) => (
+            {/* Tournament List */}
+            <div className="space-y-4">
+              {tournaments.filter(tournament => tournament.status === 'upcoming').sort((a, b) => new Date(a.start_date) - new Date(b.start_date)).map((tournament) => (
                 <div 
                   key={tournament.id} 
-                  className="bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl overflow-hidden border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2"
+                  className="bg-gradient-to-br from-gray-900/50 to-black/50 rounded-lg border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 p-6"
                 >
-                  <img 
-                    className="w-full h-40 object-cover" 
-                    src={tournament.image || '/images/spiritOpen.jpg'} // Use a fallback image
-                    alt={tournament.name} 
-                  />
-                  <div className="p-5">
-                    <h3 className="text-lg font-bold text-white mb-2 truncate">{tournament.name}</h3>
-                    <p className="text-sm text-gray-400 mb-4">{new Date(tournament.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</p>
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="text-gray-400 text-sm">Prize Pool</span>
-                      <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent font-bold">
-                        ₹{tournament.prize_pool?.toLocaleString() || '0'}
-                      </span>
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-white mb-2">{tournament.name}</h3>
+                      <p className="text-gray-400 mb-2">{new Date(tournament.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                      <div className="flex items-center space-x-4">
+                        <span className="text-sm text-gray-400">Prize Pool:</span>
+                        <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent font-bold text-lg">
+                          ₹{tournament.prize_pool?.toLocaleString() || '0'}
+                        </span>
+                      </div>
                     </div>
-                    <button className="w-full px-4 py-2 bg-purple-600/50 border border-purple-500 rounded-lg text-sm font-semibold hover:bg-purple-600 transition-colors">
-                      View Details
-                    </button>
+                    <div className="ml-6">
+                      {/* <a href="/tournament" className="px-6 py-2 bg-purple-600/50 border border-purple-500 rounded-lg text-sm font-semibold hover:bg-purple-600 transition-colors">
+                        View Details
+                      </a> */}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -369,9 +375,11 @@ export default function SpiritEsportsLanding() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
-                Register for BGMI Tournament
+                <a href="/tournament">Register for BGMI Tournament</a>
               </button>
-              <button className="px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all">
+              <button 
+                onClick={comingSoonToast}
+                className="px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all">
                 Learn More
               </button>
             </div>
