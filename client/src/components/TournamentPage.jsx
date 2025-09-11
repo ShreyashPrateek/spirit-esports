@@ -894,11 +894,20 @@ const handleRegisterClick = async (tournament) => {
     setSelectedTournament(null);
   };
 
+  // Calculate total prize pool
+  const totalPrizePool = tournaments.reduce((sum, tournament) => sum + (tournament.prize_pool || 0), 0);
+  const formatPrizePool = (amount) => {
+    if (amount >= 10000000) return `₹${(amount / 10000000).toFixed(1)}Cr`;
+    if (amount >= 100000) return `₹${(amount / 100000).toFixed(1)}L`;
+    if (amount >= 1000) return `₹${(amount / 1000).toFixed(1)}K`;
+    return `₹${amount}`;
+  };
+
   const stats = [
     { number: tournaments.filter(t => t.status === 'upcoming').length, label: "Upcoming", icon: <Clock className="w-6 h-6" /> },
     { number: tournaments.filter(t => t.status === 'ongoing').length, label: "Live Now", icon: <Play className="w-6 h-6" /> },
     { number: tournaments.filter(t => t.status === 'completed').length, label: "Completed", icon: <Trophy className="w-6 h-6" /> },
-    { number: "₹2.9L+", label: "Total Prizes", icon: <Target className="w-6 h-6" /> }
+    { number: formatPrizePool(totalPrizePool), label: "Total Prizes", icon: <Target className="w-6 h-6" /> }
   ];
 
   const TournamentCard = ({ tournament }) => (
