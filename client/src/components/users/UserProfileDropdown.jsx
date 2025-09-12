@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { User, LogOut, ChevronDown, UserCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 
-const UserProfile = () => {
+const UserProfileDropdown = () => {
   const { user, userProfile, signOut } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -66,4 +66,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default UserProfileDropdown;
