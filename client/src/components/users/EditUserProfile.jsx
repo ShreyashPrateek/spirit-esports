@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { User, Phone, Save, X } from 'lucide-react';
 import { supabase } from '../../supabaseClient';
+import { toast } from 'react-hot-toast';
 
 const EditUserProfile = ({ user, currentProfile, onSave, onCancel }) => {
   const [loading, setLoading] = useState(false);
@@ -52,7 +53,7 @@ const EditUserProfile = ({ user, currentProfile, onSave, onCancel }) => {
     }
 
     try {
-      const { data, error: upsertError } = await supabase
+      const { error: upsertError } = await supabase
         .from('profile')
         .upsert({
           id: user.id,
@@ -71,7 +72,7 @@ const EditUserProfile = ({ user, currentProfile, onSave, onCancel }) => {
         name: editData.name.trim(),
         phone: editData.phone
       });
-      alert('Profile updated successfully!');
+      toast.success('Profile updated successfully!');
     } catch (error) {
       setError(error.message);
     } finally {
