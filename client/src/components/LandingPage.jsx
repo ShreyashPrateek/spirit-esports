@@ -10,19 +10,19 @@ export default function SpiritEsportsLanding() {
   const [scrollY, setScrollY] = useState(0);
   const [isStreamComingSoon, setIsStreamComingSoon] = useState(true); // Control coming soon state
   const [tournaments, setTournaments] = useState([]);
+  const [totalPlayers, setTotalPlayers] = useState(0);
 
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
 
-        // Fetch tournaments from Supabase
+    // Fetch tournaments from Supabase
     const fetchTournaments = async () => {
       const { data, error } = await supabase
         .from('custom_tournaments')
         .select('*')
-        .order('start_date', { ascending: false })
-        .limit(4); // Let's fetch 4 tournaments for now
+        .order('start_date', { ascending: false });
 
       if (error) {
         console.error('Error fetching tournaments:', error);
@@ -33,43 +33,23 @@ export default function SpiritEsportsLanding() {
 
     fetchTournaments();
 
+    // Fetch total players count from profile table
+    const fetchPlayersCount = async () => {
+      const { count, error } = await supabase
+        .from('profile')
+        .select('*', { count: 'exact', head: true });
+
+      if (error) {
+        console.error('Error fetching players count:', error);
+      } else {
+        setTotalPlayers(count || 0);
+      }
+    };
+
+    fetchPlayersCount();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // const tournaments = [
-  //   { 
-  //     name: "BGMI Championship", 
-  //     prize: "₹5,00,000", 
-  //     image: "🏆",
-  //     date: "March 15, 2025",
-  //     teams: "128 Teams",
-  //     status: "Registration Open"
-  //   },
-  //   { 
-  //     name: "Squad Showdown", 
-  //     prize: "₹2,00,000", 
-  //     image: "🎯",
-  //     date: "March 25, 2025", 
-  //     teams: "64 Teams",
-  //     status: "Coming Soon"
-  //   },
-  //   { 
-  //     name: "Solo Masters", 
-  //     prize: "₹1,00,000", 
-  //     image: "👑",
-  //     date: "April 5, 2025",
-  //     teams: "200 Players", 
-  //     status: "Registration Open"
-  //   },
-  //   { 
-  //     name: "Weekly Clash", 
-  //     prize: "₹50,000", 
-  //     image: "⚡",
-  //     date: "Every Sunday",
-  //     teams: "32 Teams",
-  //     status: "Ongoing"
-  //   }
-  // ];
 
   const features = [
     {
@@ -93,10 +73,34 @@ export default function SpiritEsportsLanding() {
     toast.success('Coming Soon!');
   };
 
+  // Calculate total players
+  const formatPlayerCount = (count) => {
+    if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M+`;
+    if (count >= 1000) return `${(count / 1000).toFixed(1)}K+`;
+    return `${count}`;
+  };
+
+  // Calculate total prize pool
+  const totalPrizePool = tournaments.reduce((sum, tournament) => sum + (tournament.prize_pool || 0), 0);
+  const formatPrizePool = (amount) => {
+    if (amount >= 10000000) return `₹${(amount / 10000000).toFixed(1)}Cr`;
+    if (amount >= 100000) return `₹${(amount / 100000).toFixed(1)}L`;
+    if (amount >= 1000) return `₹${(amount / 1000).toFixed(1)}K`;
+    return `₹${amount}`;
+  };
+
+  // Calculate total number of tournamnents
+  // For demo, we use a static number. In real scenario, fetch count from DB if needed.
+  const formatTournamentsCount = (count) => {
+    if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M+`;
+    if (count >= 1000) return `${(count / 1000).toFixed(1)}K+`;
+    return `${count}`;
+  }
+
   const stats = [
-    { number: "25K+", label: "BGMI Players" },
-    { number: "₹50L+", label: "Prize Pool" },
-    { number: "200+", label: "Tournaments" },
+    { number: formatPlayerCount(totalPlayers), label: "BGMI Players" },
+    { number: formatPrizePool(totalPrizePool), label: "Prize Pool" },
+    { number: formatTournamentsCount(tournaments.length), label: "Tournaments" },
     { number: "95%", label: "Satisfaction" }
   ];
 
@@ -319,11 +323,6 @@ export default function SpiritEsportsLanding() {
                         </span>
                       </div>
                     </div>
-                    <div className="ml-6">
-                      {/* <a href="/tournament" className="px-6 py-2 bg-purple-600/50 border border-purple-500 rounded-lg text-sm font-semibold hover:bg-purple-600 transition-colors">
-                        View Details
-                      </a> */}
-                    </div>
                   </div>
                 </div>
               ))}
@@ -337,8 +336,6 @@ export default function SpiritEsportsLanding() {
             </div>
           </div>
         </section>
-
-
 
         {/* Features Section */}
         <section className="py-20">
