@@ -10,7 +10,7 @@ import FairPlay from './components/FairPlay';
 import CustomTournament from './components/CustomTournament';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
-import UserProfilePage from './components/UserProfilePage';
+import UserProfile from './components/users/Pages/UserProfile';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import CustomToaster from "./components/CustomToaster";
@@ -29,7 +29,7 @@ function App() {
         <Route path="/CustomTournament" element={<CustomTournament />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/profile" element={<UserProfilePage />} />
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="/footer" element={<Footer />} />
       </Routes>
       <CustomToaster />
