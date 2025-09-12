@@ -161,13 +161,13 @@ export default function Footer() {
           <div className="max-w-md mx-auto text-center">
             <h4 className="font-bold text-lg mb-4 text-white">Stay Updated</h4>
             <p className="text-gray-400 mb-6">Get the latest tournament updates and gaming news</p>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="email"
                 placeholder="Enter your email"
                 className="flex-1 px-4 py-3 bg-gray-900 border border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400"
               />
-              <button className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105">
+              <button className="px-4 sm:px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105 whitespace-nowrap">
                 Subscribe
               </button>
             </div>

@@ -22,6 +22,7 @@ const UserProfile = () => {
   const handleSignOut = async () => {
     await signOut();
     setIsDropdownOpen(false);
+    window.location.href = '/';
   };
 
   if (!user) return null;
