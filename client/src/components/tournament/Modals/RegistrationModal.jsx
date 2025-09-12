@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Users, User, Phone, X } from 'lucide-react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../../supabaseClient';
 import toast from "react-hot-toast";
 
 const RegistrationModal = ({ tournament, isOpen, onClose }) => {

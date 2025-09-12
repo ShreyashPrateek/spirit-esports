@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Trophy, Users, Target, Zap, RefreshCw, Crown, Medal, X } from 'lucide-react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../../supabaseClient';
 import toast from "react-hot-toast";
 
 const LeaderboardModal = ({ tournament, isOpen, onClose }) => {

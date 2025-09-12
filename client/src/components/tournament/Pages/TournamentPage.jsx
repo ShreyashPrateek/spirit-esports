@@ -1,11 +1,11 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Calendar, Trophy, Clock, Target, Filter, ChevronLeft, ChevronRight, Play, GamepadIcon, ArrowRight } from 'lucide-react';
-import Header from '../Header';
-import Footer from '../Footer';
-import TournamentDetailsModal from './TournamentDetailsModal';
-import RegistrationModal from './RegistrationModal';
-import LeaderboardModal from './LeaderboardModal';
-import { supabase } from '../../supabaseClient';
+import Header from '../../Header';
+import Footer from '../../Footer';
+import TournamentDetailsModal from '../Modals/TournamentDetailsModal';
+import RegistrationModal from '../Modals/RegistrationModal';
+import LeaderboardModal from '../Modals/LeaderboardModal';
+import { supabase } from '../../../supabaseClient';
 import toast from "react-hot-toast";
 
 
