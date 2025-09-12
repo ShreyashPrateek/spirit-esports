@@ -17,9 +17,10 @@ export default function ExcitingCustomTournaments() {
     startDate: '',
     prizePool: '',
     type: 'Squad',
-    details: ''
+    details: '',
+    entryFee: '',
+    maxParticipants: ''
   });
-
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -81,10 +82,10 @@ export default function ExcitingCustomTournaments() {
         details: formData.details,
         image_url: imageUrl,
         creator_id: user.id,
-          participants: {
-            max: parseInt(formData.maxParticipants), // take max from form input
-            current: 0                               // always start at 0
-  }
+        participants: {
+          max: parseInt(formData.maxParticipants), // take max from form input
+          current: 0                               // always start at 0
+        }
       };
       
       console.log('Inserting data:', insertData);
@@ -97,18 +98,25 @@ export default function ExcitingCustomTournaments() {
       
       toast.success('Tournament created successfully!');
       setShowCreateForm(false);
-      setFormData({ name: '', startDate: '', prizePool: '', type: 'Squad', details: '' });
+      setFormData({ 
+        name: '', 
+        startDate: '', 
+        prizePool: '', 
+        type: 'Squad', 
+        details: '', 
+        entryFee: '',
+        maxParticipants: ''
+      });
     } catch (error) {
       toast.error('Error creating tournament: ' + error.message);
     } finally {
       setLoading(false);
-
     }
   };
 
   const tournamentFormats = [
     {
-      icon: <Clock className="w-8 h-8" />,
+      icon: <Clock className="w-6 h-6 sm:w-8 sm:h-8" />,
       title: "Daily Scrims",
       description: "Quick 30-minute practice matches with small prize pools for skill improvement",
       frequency: "Every 2 Hours",
@@ -117,7 +125,7 @@ export default function ExcitingCustomTournaments() {
       teams: "16-32 Teams"
     },
     {
-      icon: <Target className="w-8 h-8" />,
+      icon: <Target className="w-6 h-6 sm:w-8 sm:h-8" />,
       title: "Weekly Showdowns",
       description: "Competitive weekly tournaments with moderate stakes and growing competition",
       frequency: "Every Weekend", 
@@ -126,7 +134,7 @@ export default function ExcitingCustomTournaments() {
       teams: "64-128 Teams"
     },
     {
-      icon: <Crown className="w-8 h-8" />,
+      icon: <Crown className="w-6 h-6 sm:w-8 sm:h-8" />,
       title: "Monthly Championships",
       description: "Premium tournaments with massive prize pools and professional broadcasting",
       frequency: "Monthly",
@@ -135,7 +143,7 @@ export default function ExcitingCustomTournaments() {
       teams: "256+ Teams"
     },
     {
-      icon: <Award className="w-8 h-8" />,
+      icon: <Award className="w-6 h-6 sm:w-8 sm:h-8" />,
       title: "Custom Events",
       description: "Tailored tournaments for organizations, colleges, and private groups",
       frequency: "On Demand",
@@ -147,22 +155,22 @@ export default function ExcitingCustomTournaments() {
 
   const customTournamentFeatures = [
     {
-      icon: <Settings className="w-8 h-8" />,
+      icon: <Settings className="w-6 h-6 sm:w-8 sm:h-8" />,
       title: "Full Customization",
       description: "Choose maps, game modes, team sizes, match duration, and scoring systems"
     },
     {
-      icon: <Users className="w-8 h-8" />,
+      icon: <Users className="w-6 h-6 sm:w-8 sm:h-8" />,
       title: "Private Lobbies",
       description: "Exclusive tournament rooms for your organization, college, or gaming community"
     },
     {
-      icon: <Trophy className="w-8 h-8" />,
+      icon: <Trophy className="w-6 h-6 sm:w-8 sm:h-8" />,
       title: "Custom Prizes",
       description: "Set your own prize pools, sponsor rewards, and special recognition systems"
     },
     {
-      icon: <Gamepad2 className="w-8 h-8" />,
+      icon: <Gamepad2 className="w-6 h-6 sm:w-8 sm:h-8" />,
       title: "Multiple Formats",
       description: "Solo, duo, squad tournaments with bracket, round-robin, or swiss formats"
     }
@@ -193,7 +201,7 @@ export default function ExcitingCustomTournaments() {
           {[...Array(20)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-2 h-2 bg-blue-500/30 rounded-full animate-pulse"
+              className="absolute w-1 h-1 sm:w-2 sm:h-2 bg-blue-500/30 rounded-full animate-pulse"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -230,34 +238,34 @@ export default function ExcitingCustomTournaments() {
 
         {/* Hero Section */}
         <section className="pt-16 min-h-screen flex items-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div className="space-y-6 sm:space-y-8">
                 <div className="space-y-4">
-                  <div className="inline-flex items-center px-4 py-2 bg-orange-500/20 rounded-full text-orange-300 text-sm border border-orange-500/30">
-                    <Trophy className="w-4 h-4 mr-2" />
+                  <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-orange-500/20 rounded-full text-orange-300 text-xs sm:text-sm border border-orange-500/30">
+                    <Trophy className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                     Endless Tournaments
                   </div>
-                  <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+                  <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight">
                     <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
                       EXCITING
                     </span>
                     <br />
                     <span className="text-white">TOURNAMENTS</span>
                   </h1>
-                  <p className="text-xl text-gray-300 max-w-lg">
+                  <p className="text-base sm:text-xl text-gray-300 max-w-lg">
                     Daily scrims to weekend championships - diverse BGMI tournament formats for every skill level and playstyle. From beginner-friendly matches to professional-grade competitions.
                   </p>
                 </div>
                 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col gap-3 px-2">
                   <button 
                     onClick={() => window.location.href = '/tournaments'}
-                    className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105"
+                    className="group w-full px-4 py-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-sm sm:text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105"
                   >
                     <span className="flex items-center justify-center">
-                      Join Next Tournament
-                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      <a href="/tournament">Join Next Tournament</a>
+                      <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </button>
                   <button 
@@ -272,50 +280,50 @@ export default function ExcitingCustomTournaments() {
                       }
                       setShowCreateForm(true);
                     }}
-                    className="group px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all"
+                    className="group w-full px-4 py-3 border border-purple-400 rounded-lg text-sm sm:text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all"
                   >
                     <span className="flex items-center justify-center">
-                      <Settings className="mr-2 w-5 h-5" />
+                      <Settings className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
                       Create Custom Event
                     </span>
                   </button>
                 </div>
 
-                <div className="grid grid-cols-4 gap-6 pt-8">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-6 sm:pt-8">
                   {stats.map((stat, index) => (
                     <div key={index} className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                      <div className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                         {stat.number}
                       </div>
-                      <div className="text-sm text-gray-400">{stat.label}</div>
+                      <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="relative">
+              <div className="relative mt-8 lg:mt-0">
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur-xl transform rotate-6"></div>
-                  <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 border border-purple-500/20">
-                    <div className="aspect-video bg-black rounded-lg mb-6 flex items-center justify-center relative overflow-hidden">
-                      <div className="text-6xl">🏆</div>
+                  <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl p-4 sm:p-8 border border-purple-500/20">
+                    <div className="aspect-video bg-black rounded-lg mb-4 sm:mb-6 flex items-center justify-center relative overflow-hidden">
+                      <div className="text-4xl sm:text-6xl">🏆</div>
                       <div className="absolute top-2 right-2 px-2 py-1 bg-green-500 text-white text-xs rounded">
                         LIVE NOW
                       </div>
                     </div>
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                       <div className="flex items-center justify-between">
-                        <span className="text-purple-400">Weekend Warriors</span>
-                        <span className="px-3 py-1 bg-green-500 text-white text-xs rounded-full">LIVE</span>
+                        <span className="text-purple-400 text-sm sm:text-base">Weekend Warriors</span>
+                        <span className="px-2 sm:px-3 py-1 bg-green-500 text-white text-xs rounded-full">LIVE</span>
                       </div>
-                      <h3 className="text-xl font-bold">Quarter Finals - Sanhok</h3>
+                      <h3 className="text-lg sm:text-xl font-bold">Quarter Finals - Sanhok</h3>
                       <div className="flex items-center space-x-4">
                         <div className="flex -space-x-2">
                           {[...Array(3)].map((_, i) => (
-                            <div key={i} className="w-8 h-8 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full border-2 border-black"></div>
+                            <div key={i} className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full border-2 border-black"></div>
                           ))}
                         </div>
-                        <span className="text-gray-400">128 teams competing</span>
+                        <span className="text-gray-400 text-sm">128 teams competing</span>
                       </div>
                     </div>
                   </div>
@@ -325,44 +333,44 @@ export default function ExcitingCustomTournaments() {
           </div>
           
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <ChevronDown className="w-8 h-8 text-purple-400" />
+            <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />
           </div>
         </section>
 
         {/* Tournament Formats Section */}
-        <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+        <section className="py-12 sm:py-20 bg-gradient-to-b from-black to-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
                 <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                   Tournament Formats
                 </span>
               </h2>
-              <p className="text-xl text-gray-300">Something for every skill level and schedule</p>
+              <p className="text-lg sm:text-xl text-gray-300">Something for every skill level and schedule</p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {tournamentFormats.map((format, index) => (
-                <div key={index} className="group relative bg-gradient-to-br from-gray-900 to-black rounded-xl p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all transform hover:scale-105 hover:-translate-y-2">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mb-6 text-white">
+                <div key={index} className="group relative bg-gradient-to-br from-gray-900 to-black rounded-xl p-4 sm:p-6 border border-purple-500/20 hover:border-purple-400/50 transition-all transform hover:scale-105 hover:-translate-y-2">
+                  <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mb-4 sm:mb-6 text-white">
                     {format.icon}
                   </div>
-                  <h3 className="text-xl font-bold mb-3">{format.title}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold mb-3">{format.title}</h3>
                   <p className="text-gray-300 mb-4 text-sm">{format.description}</p>
                   <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs sm:text-sm">
                       <span className="text-gray-400">Frequency:</span>
                       <span className="text-purple-400 font-semibold">{format.frequency}</span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs sm:text-sm">
                       <span className="text-gray-400">Prize Range:</span>
                       <span className="text-green-400 font-semibold">{format.prizeRange}</span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs sm:text-sm">
                       <span className="text-gray-400">Duration:</span>
                       <span className="text-white">{format.duration}</span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs sm:text-sm">
                       <span className="text-gray-400">Teams:</span>
                       <span className="text-white">{format.teams}</span>
                     </div>
@@ -374,18 +382,18 @@ export default function ExcitingCustomTournaments() {
         </section>
 
         {/* Tournament Creation Process Section */}
-        <section className="py-20">
+        <section className="py-12 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
                 <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                   How It Works
                 </span>
               </h2>
-              <p className="text-xl text-gray-300">Creating your perfect tournament in 4 simple steps</p>
+              <p className="text-lg sm:text-xl text-gray-300">Creating your perfect tournament in 4 simple steps</p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {[
                 {
                   step: "1",
@@ -414,16 +422,16 @@ export default function ExcitingCustomTournaments() {
               ].map((process, index) => (
                 <div key={index} className="text-center group">
                   <div className="relative mb-6">
-                    <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold mx-auto mb-4 group-hover:scale-110 transition-transform">
                       {process.step}
                     </div>
-                    <div className="text-4xl mb-4">{process.icon}</div>
+                    <div className="text-2xl sm:text-4xl mb-4">{process.icon}</div>
                     {index < 3 && (
                       <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 transform -translate-y-0.5"></div>
                     )}
                   </div>
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">{process.title}</h3>
-                  <p className="text-gray-300">{process.description}</p>
+                  <h3 className="text-lg sm:text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">{process.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-300">{process.description}</p>
                 </div>
               ))}
             </div>
@@ -431,28 +439,28 @@ export default function ExcitingCustomTournaments() {
         </section>
 
         {/* Custom Tournament Features */}
-        <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+        <section className="py-12 sm:py-20 bg-gradient-to-b from-gray-900 to-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
                 Create <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Custom Tournaments</span>
               </h2>
-              <p className="text-xl text-gray-300">Tailored tournaments for your community</p>
+              <p className="text-lg sm:text-xl text-gray-300">Tailored tournaments for your community</p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {customTournamentFeatures.map((feature, index) => (
-                <div key={index} className="text-center p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-purple-500/20 hover:border-purple-400/50 transition-all transform hover:scale-105">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mb-6 text-white">
+                <div key={index} className="text-center p-4 sm:p-6 bg-gradient-to-br from-gray-900/50 to-black/50 rounded-xl border border-purple-500/20 hover:border-purple-400/50 transition-all transform hover:scale-105">
+                  <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mb-4 sm:mb-6 text-white">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-                  <p className="text-gray-300">{feature.description}</p>
+                  <h3 className="text-lg sm:text-xl font-bold mb-4">{feature.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-300">{feature.description}</p>
                 </div>
               ))}
             </div>
 
-            <div className="text-center mt-12">
+            <div className="text-center mt-8 sm:mt-12 px-4">
               <button 
                 onClick={() => {
                   if (!user) {
@@ -465,7 +473,7 @@ export default function ExcitingCustomTournaments() {
                   }
                   setShowCreateForm(true);
                 }}
-                className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-sm sm:text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105"
               >
                 Create Custom Tournament
               </button>
@@ -474,20 +482,20 @@ export default function ExcitingCustomTournaments() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-purple-900/50 to-blue-900/50">
+        <section className="py-12 sm:py-20 bg-gradient-to-r from-purple-900/50 to-blue-900/50">
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
               Ready to <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Join the Competition</span>?
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-base sm:text-xl text-gray-300 mb-6 sm:mb-8">
               From casual daily scrims to intense championship battles - find your perfect tournament format
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col gap-3 max-w-md mx-auto">
               <button 
                 onClick={() => window.location.href = '/tournaments'}
-                className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105"
+                className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-sm sm:text-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105"
               >
-                Browse All Tournaments
+                <a href="/tournament">Browse All Tournaments</a>
               </button>
               <button 
                 onClick={() => {
@@ -501,7 +509,7 @@ export default function ExcitingCustomTournaments() {
                   }
                   setShowCreateForm(true);
                 }}
-                className="px-8 py-4 border border-purple-400 rounded-lg text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all"
+                className="w-full px-6 py-3 border border-purple-400 rounded-lg text-sm sm:text-lg font-semibold hover:bg-purple-400 hover:text-black transition-all"
               >
                 Schedule Custom Event
               </button>
@@ -512,22 +520,20 @@ export default function ExcitingCustomTournaments() {
         {/* Tournament Creation Modal */}
         {showCreateForm && (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto">
-            <div className="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 max-w-md w-full border border-purple-500/20 my-8">
+            <div className="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-4 sm:p-8 max-w-md w-full border border-purple-500/20 my-4 sm:my-8">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                   Create Tournament
                 </h3>
                 <button 
                   onClick={() => setShowCreateForm(false)}
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-400 hover:text-white p-2"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
               </div>
               
-              {/* Form to handle tournament creation data */}
               <form onSubmit={handleCreateTournament} className="space-y-4">
-                {/* Tournament Name */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Tournament Name</label>
                   <input
@@ -536,41 +542,38 @@ export default function ExcitingCustomTournaments() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none text-sm sm:text-base"
                     placeholder="Enter tournament name"
                   />
                 </div>
                 
-                {/* Organized By persons name or email  */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Organized By</label>
-                  <div className="flex items-center px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg">
-                    <User className="w-5 h-5 mr-2 text-purple-400" />
-                    <span className="text-gray-300">{user?.user_metadata?.full_name || user?.email}</span>
+                  <div className="flex items-center px-3 sm:px-4 py-2 sm:py-3 bg-gray-700 border border-gray-600 rounded-lg">
+                    <User className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-purple-400" />
+                    <span className="text-gray-300 text-sm sm:text-base">{user?.user_metadata?.full_name || user?.email}</span>
                   </div>
                 </div>
                 
-                {/* Start Date */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Start Date</label>
                   <div className="relative">
-                    <Calendar className="absolute left-3 top-3 w-5 h-5 text-purple-400" />
+                    <Calendar className="absolute left-3 top-2 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
                     <input
                       type="datetime-local"
                       name="startDate"
                       value={formData.startDate}
                       onChange={handleInputChange}
                       required
-                      className="w-full pl-12 pr-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                      className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2 sm:py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none text-sm sm:text-base"
                     />
                   </div>
                 </div>
                 
-                {/* Prize Pool (₹) */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Prize Pool (₹)</label>
                   <div className="relative">
-                    <Banknote className="absolute left-3 top-3 w-5 h-5 text-purple-400" />
+                    <Banknote className="absolute left-3 top-2 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
                     <input
                       type="number"
                       name="prizePool"
@@ -578,35 +581,32 @@ export default function ExcitingCustomTournaments() {
                       onChange={handleInputChange}
                       required
                       min="0"
-                      className="w-full pl-12 pr-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                      className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2 sm:py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none text-sm sm:text-base"
                       placeholder="Enter prize amount"
                     />
                   </div>
                 </div>
 
-                {/* Entry Fee */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Entry Fee</label>
                   <div className="relative">
-                    <Banknote className="absolute left-3 top-3 w-5 h-5 text-purple-400" />
+                    <Banknote className="absolute left-3 top-2 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
                     <input
                       type="text"
                       name="entryFee"
                       value={formData.entryFee}
                       onChange={handleInputChange}
                       required
-                      min="0"
-                      className="w-full pl-12 pr-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                      className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2 sm:py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none text-sm sm:text-base"
                       placeholder="Entry Fee (Type 0 for Free Entry)"
                     />
                   </div>
                 </div>
 
-                {/* Max Participants */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Max Participants</label>
                   <div className="relative">
-                    <Users className="absolute left-3 top-3 w-5 h-5 text-purple-400" />
+                    <Users className="absolute left-3 top-2 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
                     <input
                       type="number"
                       name="maxParticipants"
@@ -614,20 +614,19 @@ export default function ExcitingCustomTournaments() {
                       onChange={handleInputChange}
                       required
                       min="1"
-                      className="w-full pl-12 pr-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                      className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2 sm:py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none text-sm sm:text-base"
                       placeholder="Enter max participants (e.g., 100)"
                     />
                   </div>
                 </div>
                 
-                {/* Tournament Type */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Tournament Type</label>
                   <select
                     name="type"
                     value={formData.type}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none text-sm sm:text-base"
                   >
                     <option value="Squad">Squad (4 Players)</option>
                     <option value="Duo">Duo (2 Players)</option>
@@ -635,7 +634,6 @@ export default function ExcitingCustomTournaments() {
                   </select>
                 </div>
     
-                {/* Tournament Details */}
                 <div>
                   <label className="block text-sm font-medium mb-2">Tournament Details</label>
                   <textarea
@@ -643,23 +641,23 @@ export default function ExcitingCustomTournaments() {
                     value={formData.details}
                     onChange={handleInputChange}
                     rows="3"
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none resize-none"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-purple-400 focus:outline-none resize-none text-sm sm:text-base"
                     placeholder="Enter tournament rules, format, and other details..."
                   />
                 </div>
                 
-                <div className="flex gap-4 pt-4">
+                <div className="flex gap-3 pt-4">
                   <button
                     type="button"
                     onClick={() => setShowCreateForm(false)}
-                    className="flex-1 px-4 py-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition-all"
+                    className="flex-1 px-3 sm:px-4 py-2 sm:py-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition-all text-sm sm:text-base"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex-1 px-4 py-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all disabled:opacity-50"
+                    className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all disabled:opacity-50 text-sm sm:text-base"
                   >
                     {loading ? 'Creating...' : 'Create Tournament'}
                   </button>
