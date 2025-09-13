@@ -14,6 +14,8 @@ import UserProfile from './components/users/Pages/UserProfile';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import CustomToaster from "./components/CustomToaster";
+import ForgetPassword from './components/ForgetPassword';
+import ResetPassword from './components/ResetPassword';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path='/forgot-password' element={<ForgetPassword />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
         <Route path="/footer" element={<Footer />} />
       </Routes>
       <CustomToaster />
