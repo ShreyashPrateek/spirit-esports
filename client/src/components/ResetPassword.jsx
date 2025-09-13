@@ -12,22 +12,29 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check URL params for password reset tokens
-    const urlParams = new URLSearchParams(window.location.search);
-    const accessToken = urlParams.get('access_token');
-    const refreshToken = urlParams.get('refresh_token');
-    const type = urlParams.get('type');
+    // Handle the auth callback from email link
+    const handleAuthCallback = async () => {
+      try {
+        // This will automatically handle the tokens from the URL
+        const { data, error } = await supabase.auth.getSession();
+        
+        if (error) {
+          console.error('Auth error:', error);
+          navigate('/login');
+          return;
+        }
+        
+        // If no session, user didn't come from valid reset link
+        if (!data.session) {
+          navigate('/login');
+        }
+      } catch (error) {
+        console.error('Session check failed:', error);
+        navigate('/login');
+      }
+    };
     
-    if (type === 'recovery' && accessToken && refreshToken) {
-      // This is a password recovery session
-      supabase.auth.setSession({
-        access_token: accessToken,
-        refresh_token: refreshToken
-      });
-    } else {
-      // Not a password recovery, redirect to login
-      navigate('/login');
-    }
+    handleAuthCallback();
   }, [navigate]);
 
   const handleSubmit = async (e) => {
