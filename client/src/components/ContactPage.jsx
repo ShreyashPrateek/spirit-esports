@@ -2,11 +2,13 @@ import { useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import { Send, X, User, Phone, Mail, MessageSquare, FileText, MapPin, Clock, Users } from 'lucide-react';
+import { supabase } from '../supabaseClient';
+import { toast } from 'react-hot-toast';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    whatsapp: '',
+    full_name: '',
+    whatsapp_number: '',
     email: '',
     subject: '',
     description: ''
@@ -33,14 +35,14 @@ export default function ContactPage() {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+    if (!formData.full_name.trim()) {
+      newErrors.full_name = 'Name is required';
     }
 
-    if (!formData.whatsapp.trim()) {
-      newErrors.whatsapp = 'WhatsApp number is required';
-    } else if (!/^\+?[\d\s-()]+$/.test(formData.whatsapp)) {
-      newErrors.whatsapp = 'Please enter a valid phone number';
+    if (!formData.whatsapp_number.trim()) {
+      newErrors.whatsapp_number = 'WhatsApp number is required';
+    } else if (!/^\+?[\d\s-()]+$/.test(formData.whatsapp_number)) {
+      newErrors.whatsapp_number = 'Please enter a valid phone number';
     }
 
     if (!formData.email.trim()) {
@@ -72,13 +74,34 @@ export default function ContactPage() {
 
     setIsSubmitting(true);
     
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      alert('Message sent successfully! We will get back to you soon.');
-      handleCancel();
+      const { data, error } = await supabase.from('contact_form').insert([formData]).select();
+
+      if (error) {
+        console.error('Error:', error.message);
+        toast.error('Something went wrong! Please try again.');
+      } else {
+        // Send email notification
+        try {
+          await fetch('https://zagvengatuxgmhycucta.functions.supabase.co/send-mail', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
+              'apikey': process.env.REACT_APP_SUPABASE_ANON_KEY,
+            },
+            body: JSON.stringify({ record: data[0] })
+          });
+        } catch (emailError) {
+          console.log('Email notification failed:', emailError);
+        }
+        
+        toast.success('Form submitted successfully! We will get back to you soon.');
+        handleCancel();
+      }
     } catch (error) {
-      alert('Failed to send message. Please try again.');
+      console.error('Error:', error);
+      toast.error('Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -86,8 +109,8 @@ export default function ContactPage() {
 
   const handleCancel = () => {
     setFormData({
-      name: '',
-      whatsapp: '',
+      full_name: '',
+      whatsapp_number: '',
       email: '',
       subject: '',
       description: ''
@@ -182,15 +205,15 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="text"
-                      name="name"
-                      value={formData.name}
+                      name="full_name"
+                      value={formData.full_name}
                       onChange={handleInputChange}
                       className={`w-full px-4 py-3 bg-black/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
-                        errors.name ? 'border-red-500' : 'border-purple-500/30 focus:border-purple-500'
+                        errors.full_name ? 'border-red-500' : 'border-purple-500/30 focus:border-purple-500'
                       }`}
                       placeholder="Enter your full name"
                     />
-                    {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
+                    {errors.full_name && <p className="text-red-400 text-sm mt-1">{errors.full_name}</p>}
                   </div>
 
                   {/* WhatsApp Field */}
@@ -201,15 +224,15 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="tel"
-                      name="whatsapp"
-                      value={formData.whatsapp}
+                      name="whatsapp_number"
+                      value={formData.whatsapp_number}
                       onChange={handleInputChange}
                       className={`w-full px-4 py-3 bg-black/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
-                        errors.whatsapp ? 'border-red-500' : 'border-purple-500/30 focus:border-purple-500'
+                        errors.whatsapp_number ? 'border-red-500' : 'border-purple-500/30 focus:border-purple-500'
                       }`}
                       placeholder="+91 9876543210"
                     />
-                    {errors.whatsapp && <p className="text-red-400 text-sm mt-1">{errors.whatsapp}</p>}
+                    {errors.whatsapp_number && <p className="text-red-400 text-sm mt-1">{errors.whatsapp_number}</p>}
                   </div>
 
                   {/* Email Field */}

@@ -92,3 +92,14 @@ Desktop.ini
 # Temporary folders
 tmp/
 temp/
+
+# Supabase CLI temp files
+supabase/.temp/
+**/supabase/.temp/
+cli-latest
+gotrue-version
+pooler-url
+postgres-version
+project-ref
+rest-version
+storage-version
