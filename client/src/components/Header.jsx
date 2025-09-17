@@ -97,14 +97,14 @@ export default function Header() {
                   onMouseEnter={() => setIsOfferDropdownOpen(true)}
                   onMouseLeave={() => setIsOfferDropdownOpen(false)}
                 >
+                  <Link to="/CustomTournament" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
+                    Exciting & Custom Tournaments
+                  </Link>
                   <Link to="/ProGaming" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
                     Pro-Grade Gaming Experience
                   </Link>
                   <Link to="/FairPlay" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
                     Fair Play & Player Support
-                  </Link>
-                  <Link to="/CustomTournament" className="block px-4 py-3 text-sm hover:text-purple-400 hover:bg-purple-400/10 transition-colors">
-                    Exciting & Custom Tournaments
                   </Link>
                 </div>
               </div>
