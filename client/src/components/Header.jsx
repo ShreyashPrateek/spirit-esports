@@ -76,6 +76,7 @@ export default function Header() {
           
           <div className="hidden md:block">
             <div className="flex items-baseline space-x-8">
+              <Link to="/" className="hover:text-purple-400 transition-colors">Home</Link>
               <Link to="/about" className="hover:text-purple-400 transition-colors">About Us</Link>
               
               {/* Dropdown for "What we offer" */}
