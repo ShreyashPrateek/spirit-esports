@@ -67,12 +67,6 @@ export default function AboutUs() {
       description: "Gaming technology specialist with competitive gaming background"
     },
     {
-      name: "Saqulain Jasim",
-      role: "Tournament Operations Director",
-      image: "👨‍💼",
-      description: "Oversees all competitive events and ensures smooth operations"
-    },
-    {
       name: "Yadhuvanshi Vishal",
       role: "Esports Coach/Training Coordinator",
       image: "👨‍💼",
