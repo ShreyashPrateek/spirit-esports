@@ -130,7 +130,7 @@ export default function Footer() {
               </div>
               <div>
                 <div className="text-sm text-gray-400">Email Us</div>
-                <div className="text-white font-semibold">support@spiritesports.com</div>
+                <div className="text-white font-semibold">Coming Soon</div>
               </div>
             </div>
             
@@ -140,7 +140,7 @@ export default function Footer() {
               </div>
               <div>
                 <div className="text-sm text-gray-400">Call Us</div>
-                <div className="text-white font-semibold">+91 98765 43210</div>
+                <div className="text-white font-semibold">Coming Soon</div>
               </div>
             </div>
             
@@ -150,7 +150,7 @@ export default function Footer() {
               </div>
               <div>
                 <div className="text-sm text-gray-400">Location</div>
-                <div className="text-white font-semibold">Mumbai, India</div>
+                <div className="text-white font-semibold">Remote - India</div>
               </div>
             </div>
           </div>
