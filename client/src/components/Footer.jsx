@@ -63,16 +63,16 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-lg mb-6 text-white">Tournaments</h4>
             <div className="space-y-3">
-              <a href="#" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/tournament" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 BGMI Championship
               </a>
-              <a href="#" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/tournament" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Squad Showdown
               </a>
-              <a href="#" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/tournament" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Solo Masters
               </a>
-              <a href="#" onClick={comingSoonToast}className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/tournament" onClick={comingSoonToast}className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Weekly Clash
               </a>
               <a href="/tournament" className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
@@ -88,13 +88,13 @@ export default function Footer() {
               <a href="/about" className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 About Us
               </a>
-              <a href="#" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/about" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Careers
               </a>
-              <a href="#" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/about" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Press Kit
               </a>
-              <a href="#" onClick={comingSoonToast}className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/about" onClick={comingSoonToast}className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Partners
               </a>
               <a href="/contact" className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
@@ -107,19 +107,19 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-lg mb-6 text-white">Support & Legal</h4>
             <div className="space-y-3">
-              <a href="#" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/contact" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Help Center
               </a>
-              <a href="#" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/tournament" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Tournament Rules
               </a>
-              <a href="#" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/tournament" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Privacy Policy
               </a>
-              <a href="#" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/tournament" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Terms of Service
               </a>
-              <a href="#" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
+              <a href="/contact" onClick={comingSoonToast} className="block text-gray-400 hover:text-purple-400 transition-colors hover:translate-x-1 transform">
                 Refund Policy
               </a>
             </div>
